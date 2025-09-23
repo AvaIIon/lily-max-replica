@@ -146,32 +146,77 @@ export const ProductDetail = () => {
             </div>
 
             {/* Product Options */}
-            {product.options && product.options.length > 0 && (
+            {product.options && typeof product.options === 'string' && product.options.trim() && (
               <div className="space-y-4">
-                {product.options.map((option) => (
-                  <div key={option.name}>
-                    <label className="block text-sm font-medium text-foreground mb-2">
-                      {option.name}:
-                    </label>
-                    <Select
-                      value={selectedOptions[option.name] || ''}
-                      onValueChange={(value) => 
-                        setSelectedOptions(prev => ({ ...prev, [option.name]: value }))
-                      }
-                    >
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder={`Select ${option.name.toLowerCase()}`} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {option.values.map((value) => (
-                          <SelectItem key={value} value={value}>
-                            {value}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                ))}
+                {product.options.includes('=') ? (
+                  // Handle attribute format like "attribute_pa_finish=Espresso/Grey/Natural/White"
+                  product.options.split(',').map((optionPart, index) => {
+                    const [fullKey, values] = optionPart.split('=');
+                    if (!fullKey || !values) return null;
+                    
+                    // Clean up the key name (remove attribute_pa_ prefix)
+                    const optionName = fullKey.replace(/attribute_pa_/g, '').replace(/_/g, ' ').trim();
+                    const optionValues = values.split('/').filter(v => v.trim());
+                    
+                    if (optionValues.length === 0) return null;
+                    
+                    return (
+                      <div key={index}>
+                        <label className="block text-sm font-medium text-foreground mb-2 capitalize">
+                          {optionName}:
+                        </label>
+                        <Select
+                          value={selectedOptions[optionName] || ''}
+                          onValueChange={(value) => 
+                            setSelectedOptions(prev => ({ ...prev, [optionName]: value }))
+                          }
+                        >
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder={`Select ${optionName.toLowerCase()}`} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {optionValues.map((value, valueIndex) => (
+                              <SelectItem key={valueIndex} value={value.trim()}>
+                                {value.trim()}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    );
+                  })
+                ) : (
+                  // Handle other formats like "Color: White, Gray; Size: Twin, Full"
+                  product.options.split(';').map((optionGroup, index) => {
+                    const [optionName, optionValues] = optionGroup.split(':').map(s => s?.trim());
+                    if (!optionName || !optionValues) return null;
+                    
+                    return (
+                      <div key={index}>
+                        <label className="block text-sm font-medium text-foreground mb-2">
+                          {optionName}:
+                        </label>
+                        <Select
+                          value={selectedOptions[optionName] || ''}
+                          onValueChange={(value) => 
+                            setSelectedOptions(prev => ({ ...prev, [optionName]: value }))
+                          }
+                        >
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder={`Select ${optionName.toLowerCase()}`} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {optionValues.split(',').map((value, valueIndex) => (
+                              <SelectItem key={valueIndex} value={value.trim()}>
+                                {value.trim()}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    );
+                  })
+                )}
               </div>
             )}
 
