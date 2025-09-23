@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Header } from '@/components/Header';
 import { Button } from '@/components/ui/button';
-import { sampleProducts, getFormattedPrice, getProductsByCategory } from '@/data/productData';
+import { sampleProducts, getFormattedPrice, getProductsByCategory, generateHandle } from '@/data/productData';
 
 const categoryTabs = [
   { id: 'all', label: 'All Bunk Beds', filter: 'bunk' },
@@ -92,7 +93,11 @@ export const BunkBeds = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {products.map((product, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 group overflow-hidden">
+              <Link
+                key={index}
+                to={`/product/${product.handle || generateHandle(product.title)}`}
+                className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 group overflow-hidden"
+              >
                 <div className="aspect-square bg-gray-100 relative overflow-hidden">
                   <img 
                     src={product.image} 
@@ -127,11 +132,15 @@ export const BunkBeds = () => {
                     variant="cta" 
                     className="w-full"
                     size="sm"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      // Navigate to product detail page
+                    }}
                   >
-                    Add to Cart
+                    View Details
                   </Button>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 

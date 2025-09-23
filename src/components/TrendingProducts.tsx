@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { sampleProducts, getFormattedPrice } from '@/data/productData';
 
@@ -49,34 +50,41 @@ export const TrendingProducts = () => {
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
-          {products.map((product, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-sm overflow-hidden group hover:shadow-lg transition-shadow cursor-pointer">
-              <div className="aspect-square bg-gray-100 relative overflow-hidden">
-                <img 
-                  src={product.image} 
-                  alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  onError={(e) => {
-                    e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
-                  }}
-                />
-                {product.availability === 'In stock' && (
-                  <div className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
-                    In Stock
-                  </div>
-                )}
-              </div>
-              <div className="p-4">
-                <h3 className="font-medium text-gray-800 mb-2 text-sm line-clamp-2">{product.name}</h3>
-                <div className="flex items-center space-x-2">
-                  <span className="text-lg font-bold text-primary">{product.price}</span>
-                  {product.originalPrice && (
-                    <span className="text-sm text-gray-500 line-through">{product.originalPrice}</span>
+          {products.map((product, index) => {
+            const originalProduct = sampleProducts[index];
+            return (
+              <Link
+                key={index}
+                to={`/product/${originalProduct?.handle || 'unknown'}`}
+                className="bg-white rounded-lg shadow-sm overflow-hidden group hover:shadow-lg transition-shadow cursor-pointer"
+              >
+                <div className="aspect-square bg-gray-100 relative overflow-hidden">
+                  <img 
+                    src={product.image} 
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    onError={(e) => {
+                      e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
+                    }}
+                  />
+                  {product.availability === 'In stock' && (
+                    <div className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
+                      In Stock
+                    </div>
                   )}
                 </div>
-              </div>
-            </div>
-          ))}
+                <div className="p-4">
+                  <h3 className="font-medium text-gray-800 mb-2 text-sm line-clamp-2">{product.name}</h3>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-lg font-bold text-primary">{product.price}</span>
+                    {product.originalPrice && (
+                      <span className="text-sm text-gray-500 line-through">{product.originalPrice}</span>
+                    )}
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
         </div>
 
         <div className="text-center">

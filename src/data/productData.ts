@@ -8,6 +8,8 @@ export interface Product {
   options: string;
   imageUrls: string[];
   productUrl: string;
+  handle?: string; // Generated from title for routing
+  description?: string; // Optional description
 }
 
 // Parse CSV data with proper comma handling
@@ -74,6 +76,16 @@ export const loadBedsmartProducts = async (): Promise<Product[]> => {
   }
 };
 
+// Generate a URL-friendly handle from title
+export const generateHandle = (title: string): string => {
+  return title
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '') // Remove special characters
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-') // Replace multiple hyphens with single
+    .trim();
+};
+
 // Sample data from CSV for immediate use
 export const sampleProducts: Product[] = [
   {
@@ -90,7 +102,8 @@ export const sampleProducts: Product[] = [
       "https://bedsmart.ca/wp-content/uploads/2022/06/1436.jpg",
       "https://bedsmart.ca/wp-content/uploads/2022/06/258.jpg"
     ],
-    productUrl: "https://bedsmart.ca/product/1-drawer-night-stand-with-shelf/"
+    productUrl: "https://bedsmart.ca/product/1-drawer-night-stand-with-shelf/",
+    handle: generateHandle("Max & Lily 1 Drawer Night Stand with Shelf")
   },
   {
     title: "Maxtrix Twin Low Basic Bed",
