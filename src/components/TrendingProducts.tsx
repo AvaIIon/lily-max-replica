@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { sampleProducts, getFormattedPrice } from '@/data/productData';
 
 const tabs = [
   "Going Fast",
@@ -8,18 +9,17 @@ const tabs = [
   "Bunk Beds"
 ];
 
-const products = [
-  { name: "Twin Over Twin Bunk Bed", price: "$749.49", originalPrice: "$909", image: "https://via.placeholder.com/300x200" },
-  { name: "Loft Bed with Desk", price: "$599.99", originalPrice: "$729", image: "https://via.placeholder.com/300x200" },
-  { name: "Storage Platform Bed", price: "$449.99", originalPrice: "$549", image: "https://via.placeholder.com/300x200" },
-  { name: "Trundle Daybed", price: "$399.99", originalPrice: "$499", image: "https://via.placeholder.com/300x200" },
-  { name: "Full Size Bunk Bed", price: "$899.99", originalPrice: "$1099", image: "https://via.placeholder.com/300x200" },
-  { name: "Study Loft Bed", price: "$679.99", originalPrice: "$799", image: "https://via.placeholder.com/300x200" },
-  { name: "Twin Bed Frame", price: "$299.99", originalPrice: "$399", image: "https://via.placeholder.com/300x200" },
-  { name: "Bookcase Headboard Bed", price: "$529.99", originalPrice: "$649", image: "https://via.placeholder.com/300x200" },
-  { name: "L-Shaped Bunk Bed", price: "$799.99", originalPrice: "$949", image: "https://via.placeholder.com/300x200" },
-  { name: "Captain's Bed", price: "$549.99", originalPrice: "$679", image: "https://via.placeholder.com/300x200" }
-];
+// Use real product data from Bedsmart CSV
+const products = sampleProducts.slice(0, 10).map(product => {
+  const pricing = getFormattedPrice(product);
+  return {
+    name: product.title,
+    price: pricing.current,
+    originalPrice: pricing.original || '',
+    image: product.imageUrls[0] || "https://via.placeholder.com/300x200",
+    availability: product.availability
+  };
+});
 
 export const TrendingProducts = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -28,7 +28,7 @@ export const TrendingProducts = () => {
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-4xl font-bold text-center mb-8 text-gray-800">
-          Trending for Bigs & Littles
+          Trending Products for Every Room
         </h2>
         
         {/* Tabs */}
@@ -50,19 +50,29 @@ export const TrendingProducts = () => {
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
           {products.map((product, index) => (
-            <div key={index} className="bg-white rounded-lg shadow-sm overflow-hidden group hover:shadow-lg transition-shadow">
+            <div key={index} className="bg-white rounded-lg shadow-sm overflow-hidden group hover:shadow-lg transition-shadow cursor-pointer">
               <div className="aspect-square bg-gray-100 relative overflow-hidden">
                 <img 
                   src={product.image} 
                   alt={product.name}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  onError={(e) => {
+                    e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
+                  }}
                 />
+                {product.availability === 'In stock' && (
+                  <div className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded">
+                    In Stock
+                  </div>
+                )}
               </div>
               <div className="p-4">
-                <h3 className="font-medium text-gray-800 mb-2 text-sm">{product.name}</h3>
+                <h3 className="font-medium text-gray-800 mb-2 text-sm line-clamp-2">{product.name}</h3>
                 <div className="flex items-center space-x-2">
-                  <span className="text-lg font-bold text-gray-900">{product.price}</span>
-                  <span className="text-sm text-gray-500 line-through">{product.originalPrice}</span>
+                  <span className="text-lg font-bold text-primary">{product.price}</span>
+                  {product.originalPrice && (
+                    <span className="text-sm text-gray-500 line-through">{product.originalPrice}</span>
+                  )}
                 </div>
               </div>
             </div>
@@ -71,7 +81,7 @@ export const TrendingProducts = () => {
 
         <div className="text-center">
           <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-50">
-            View More
+            View All Products
           </Button>
         </div>
       </div>

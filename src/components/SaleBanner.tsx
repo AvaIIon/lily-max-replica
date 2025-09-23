@@ -36,18 +36,17 @@ export const SaleBanner = () => {
   }, []);
 
   return (
-    <div className="bg-sale-green text-white py-3 px-4 text-center">
-      <div className="flex items-center justify-center space-x-2 text-sm font-medium">
-        <span>Don't Miss Savings Up To 35% |</span>
+    <div className="bg-sale-green text-white py-3 px-4 text-center relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-r from-sale-green via-sale-green to-green-600"></div>
+      <div className="relative z-10 flex items-center justify-center space-x-2 text-sm font-medium">
+        <span>🎉 BIGGEST SALE OF THE YEAR! Save up to 40% on all bunk beds & loft beds |</span>
         <div className="flex items-center space-x-1">
           <span>{timeLeft.days}day :</span>
           <span>{timeLeft.hours}hrs :</span>
           <span>{timeLeft.minutes}mins :</span>
           <span>{timeLeft.seconds}secs</span>
         </div>
-      </div>
-      <div className="text-xs mt-1 opacity-90">
-        FALLING IN LOVE WITH THEIR ROOM
+        <span>| FREE SHIPPING over $299 | Call: 416-919-4434</span>
       </div>
     </div>
   );

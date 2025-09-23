@@ -1,28 +1,21 @@
 import { Button } from '@/components/ui/button';
+import { sampleProducts, getFormattedPrice } from '@/data/productData';
 
+// Use real products from the data
 const showcaseProducts = [
-  {
-    id: 1,
-    name: "Mid-Century Modern Twin Over Twin L-Shaped Bunk Bed",
-    price: "$749.49",
-    originalPrice: "$909",
-    image: "https://via.placeholder.com/200x150"
-  },
-  {
-    id: 2, 
-    name: "Mid-Century Modern Cubby Nightstand",
-    price: "$129.49",
-    originalPrice: "$189",
-    image: "https://via.placeholder.com/200x150"
-  },
-  {
-    id: 3,
-    name: "Frankie Bookcase", 
-    price: "$179.49",
-    originalPrice: "$299",
-    image: "https://via.placeholder.com/200x150"
-  }
-];
+  sampleProducts[0], // Night Stand
+  sampleProducts[5], // Dresser  
+  sampleProducts[7]  // 3 Drawer Dresser
+].map((product, index) => {
+  const pricing = getFormattedPrice(product);
+  return {
+    id: index + 1,
+    name: product.title,
+    price: pricing.current,
+    originalPrice: pricing.original || '',
+    image: product.imageUrls[0] || "https://via.placeholder.com/200x150"
+  };
+});
 
 export const RoomShowcase = () => {
   return (
