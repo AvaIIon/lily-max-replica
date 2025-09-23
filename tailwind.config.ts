@@ -47,6 +47,11 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        // Max & Lily Brand Colors
+        "max-blue": "hsl(var(--max-blue))",
+        "lily-pink": "hsl(var(--lily-pink))",
+        "sale-green": "hsl(var(--sale-green))",
+        "cta-pink": "hsl(var(--cta-pink))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
