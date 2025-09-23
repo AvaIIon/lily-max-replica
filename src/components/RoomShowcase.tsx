@@ -5,8 +5,8 @@ import { sampleProducts, getFormattedPrice } from '@/data/productData';
 const showcaseProducts = [
   sampleProducts[0], // Night Stand
   sampleProducts[5], // Dresser  
-  sampleProducts[7]  // 3 Drawer Dresser
-].map((product, index) => {
+  sampleProducts[3]  // Twin High Basic Bed
+].filter(product => product).map((product, index) => {
   const pricing = getFormattedPrice(product);
   return {
     id: index + 1,
