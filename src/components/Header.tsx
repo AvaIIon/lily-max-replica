@@ -36,7 +36,7 @@ export const Header = () => {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <div className="flex items-center space-x-3">
-          <div className="text-3xl font-bold">
+           <div className="text-3xl font-bold">
             <span className="text-max-blue">Bed</span>
             <span className="text-lily-pink">smart</span>
           </div>
