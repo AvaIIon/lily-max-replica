@@ -4,22 +4,32 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Header } from '@/components/Header';
-import { sampleProducts, getFormattedPrice, generateHandle } from '@/data/productData';
+import { loadBedsmartProducts, getFormattedPrice, generateHandle, getProductsByCategory } from '@/data/productData';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
 import { ShoppingCart, Star } from 'lucide-react';
 
 export const SingleBeds = () => {
-  const [products, setProducts] = useState(sampleProducts);
+  const [products, setProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const { addToCart } = useCart();
   const { toast } = useToast();
 
-  // Filter products for single beds category
-  const singleBedProducts = products.filter(product => 
-    product.category.toLowerCase().includes('single') || 
-    product.title.toLowerCase().includes('single') ||
-    product.title.toLowerCase().includes('twin')
-  );
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const allProducts = await loadBedsmartProducts();
+        const singleBedProducts = getProductsByCategory(allProducts, 'Single Beds');
+        setProducts(singleBedProducts);
+      } catch (error) {
+        console.error('Error loading products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchProducts();
+  }, []);
 
   const handleAddToCart = (product: any) => {
     addToCart(product, 1);
@@ -59,7 +69,7 @@ export const SingleBeds = () => {
         <div className="flex justify-between items-center mb-8">
           <div>
             <h2 className="text-2xl font-bold text-foreground">
-              Single Beds ({singleBedProducts.length} products)
+              Single Beds ({products.length} products)
             </h2>
             <p className="text-muted-foreground mt-2">
               Quality single beds for comfort and style
@@ -67,9 +77,13 @@ export const SingleBeds = () => {
           </div>
         </div>
 
-        {singleBedProducts.length > 0 ? (
+        {loading ? (
+          <div className="text-center py-16">
+            <p className="text-muted-foreground">Loading products...</p>
+          </div>
+        ) : products.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {singleBedProducts.map((product) => {
+            {products.map((product) => {
               const pricing = getFormattedPrice(product);
               const productHandle = product.handle || generateHandle(product.title);
               

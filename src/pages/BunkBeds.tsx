@@ -1,157 +1,161 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Header } from '@/components/Header';
 import { Button } from '@/components/ui/button';
-import { sampleProducts, getFormattedPrice, getProductsByCategory, generateHandle } from '@/data/productData';
-
-const categoryTabs = [
-  { id: 'all', label: 'All Bunk Beds', filter: 'bunk' },
-  { id: 'twin-over-twin', label: 'Twin Over Twin', filter: 'twin' },
-  { id: 'twin-over-full', label: 'Twin Over Full', filter: 'full' },
-  { id: 'loft', label: 'Loft Beds', filter: 'loft' },
-  { id: 'storage', label: 'With Storage', filter: 'dresser' }
-];
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Header } from '@/components/Header';
+import { loadBedsmartProducts, getFormattedPrice, generateHandle, getProductsByCategory } from '@/data/productData';
+import { useCart } from '@/contexts/CartContext';
+import { useToast } from '@/hooks/use-toast';
+import { ShoppingCart, Star } from 'lucide-react';
 
 export const BunkBeds = () => {
-  const [activeCategory, setActiveCategory] = useState('all');
-  
-  // Filter products based on category
-  const getFilteredProducts = () => {
-    const currentTab = categoryTabs.find(tab => tab.id === activeCategory);
-    if (!currentTab || currentTab.id === 'all') {
-      return sampleProducts;
-    }
+  const [products, setProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { addToCart } = useCart();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const allProducts = await loadBedsmartProducts();
+        const bunkBedProducts = getProductsByCategory(allProducts, 'Bunk Beds');
+        setProducts(bunkBedProducts);
+      } catch (error) {
+        console.error('Error loading products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
     
-    return sampleProducts.filter(product => 
-      product.title.toLowerCase().includes(currentTab.filter.toLowerCase()) ||
-      product.category.toLowerCase().includes(currentTab.filter.toLowerCase())
-    );
+    fetchProducts();
+  }, []);
+
+  const handleAddToCart = (product: any) => {
+    addToCart(product, 1);
+    toast({
+      title: "Added to cart",
+      description: `${product.title} has been added to your cart.`,
+    });
   };
 
-  const products = getFilteredProducts().map(product => {
-    const pricing = getFormattedPrice(product);
-    return {
-      ...product,
-      displayPrice: pricing.current,
-      originalPrice: pricing.original,
-      image: product.imageUrls[0] || "https://via.placeholder.com/300x200"
-    };
-  });
-
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background">
       <Header />
       
-      {/* Page Header */}
-      <section className="bg-white py-8 border-b">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-sm text-gray-500 mb-2">
-            <span>Home</span> / <span className="text-primary font-medium">Bunk Beds</span>
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Bunk Beds Collection</h1>
-          <p className="text-lg text-gray-600 max-w-2xl">
-            Discover our premium collection of space-saving bunk beds perfect for siblings, sleepovers, and maximizing bedroom space.
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-blue-50 to-indigo-50 py-16">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-4xl font-bold text-foreground mb-4">
+            Bunk Beds Collection
+          </h1>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Space-saving bunk beds perfect for siblings, sleepovers, and maximizing bedroom functionality.
           </p>
         </div>
       </section>
 
-      {/* Category Tabs */}
-      <section className="bg-white py-6 border-b">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-wrap gap-2">
-            {categoryTabs.map((tab) => (
-              <Button
-                key={tab.id}
-                variant={activeCategory === tab.id ? "default" : "outline"}
-                onClick={() => setActiveCategory(tab.id)}
-                className="rounded-full"
-              >
-                {tab.label}
-              </Button>
-            ))}
-          </div>
+      {/* Breadcrumb */}
+      <nav className="container mx-auto px-4 py-4">
+        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+          <Link to="/" className="hover:text-foreground">Home</Link>
+          <span>/</span>
+          <span className="text-foreground">Bunk Beds</span>
         </div>
-      </section>
+      </nav>
 
       {/* Products Grid */}
-      <section className="py-12">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex justify-between items-center mb-8">
-            <div className="text-gray-600">
-              Showing {products.length} products
-            </div>
-            <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-500">Sort by:</span>
-              <select className="border border-gray-300 rounded-md px-3 py-2 text-sm">
-                <option>Featured</option>
-                <option>Price: Low to High</option>
-                <option>Price: High to Low</option>
-                <option>Newest</option>
-              </select>
-            </div>
+      <section className="container mx-auto px-4 pb-16">
+        <div className="flex justify-between items-center mb-8">
+          <div>
+            <h2 className="text-2xl font-bold text-foreground">
+              Bunk Beds ({products.length} products)
+            </h2>
+            <p className="text-muted-foreground mt-2">
+              Safe and stylish bunk beds for shared spaces
+            </p>
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {products.map((product, index) => (
-              <Link
-                key={index}
-                to={`/product/${product.handle || generateHandle(product.title)}`}
-                className="bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 group overflow-hidden"
-              >
-                <div className="aspect-square bg-gray-100 relative overflow-hidden">
-                  <img 
-                    src={product.image} 
-                    alt={product.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    onError={(e) => {
-                      e.currentTarget.src = "https://via.placeholder.com/300x300?text=Product+Image";
-                    }}
-                  />
-                  {product.availability === 'In stock' && (
-                    <div className="absolute top-3 right-3 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
-                      In Stock
-                    </div>
-                  )}
-                </div>
-                
-                <div className="p-6">
-                  <h3 className="font-semibold text-gray-900 mb-3 line-clamp-2 group-hover:text-primary transition-colors">
-                    {product.title}
-                  </h3>
-                  
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-xl font-bold text-primary">{product.displayPrice}</span>
-                      {product.originalPrice && (
-                        <span className="text-sm text-gray-500 line-through">{product.originalPrice}</span>
-                      )}
-                    </div>
+        {loading ? (
+          <div className="text-center py-16">
+            <p className="text-muted-foreground">Loading products...</p>
+          </div>
+        ) : products.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {products.map((product) => {
+              const pricing = getFormattedPrice(product);
+              const productHandle = product.handle || generateHandle(product.title);
+              
+              return (
+                <Card key={productHandle} className="group hover:shadow-lg transition-shadow duration-300">
+                  <div className="relative overflow-hidden rounded-t-lg">
+                    <img
+                      src={product.imageUrls[0] || "https://via.placeholder.com/300x200"}
+                      alt={product.title}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
+                      }}
+                    />
+                    {product.salePrice && product.price && (
+                      <Badge className="absolute top-3 left-3 bg-red-500 text-white">
+                        Sale
+                      </Badge>
+                    )}
                   </div>
                   
-                  <Button 
-                    variant="cta" 
-                    className="w-full"
-                    size="sm"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      // Navigate to product detail page
-                    }}
-                  >
-                    View Details
-                  </Button>
-                </div>
-              </Link>
-            ))}
+                  <CardContent className="p-4">
+                    <Link to={`/product/${productHandle}`}>
+                      <h3 className="font-semibold text-foreground mb-2 hover:text-primary transition-colors line-clamp-2">
+                        {product.title}
+                      </h3>
+                    </Link>
+                    
+                    <div className="flex items-center mb-2">
+                      <div className="flex items-center">
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                        ))}
+                      </div>
+                      <span className="text-sm text-muted-foreground ml-2">(0)</span>
+                    </div>
+                    
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-lg font-bold text-primary">{pricing.current}</span>
+                        {pricing.original && (
+                          <span className="text-sm text-muted-foreground line-through">
+                            {pricing.original}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    
+                    <div className="flex space-x-2">
+                      <Button
+                        onClick={() => handleAddToCart(product)}
+                        className="flex-1"
+                        size="sm"
+                      >
+                        <ShoppingCart className="w-4 h-4 mr-1" />
+                        Add to Cart
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
-
-          {products.length === 0 && (
-            <div className="text-center py-12">
-              <div className="text-gray-400 text-6xl mb-4">🛏️</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No products found</h3>
-              <p className="text-gray-600">Try selecting a different category or clear your filters.</p>
-            </div>
-          )}
-        </div>
+        ) : (
+          <div className="text-center py-16">
+            <p className="text-muted-foreground mb-4">No bunk beds found in our current inventory.</p>
+            <p className="text-muted-foreground mb-6">Check back soon for new arrivals!</p>
+            <Button asChild>
+              <Link to="/">Browse All Products</Link>
+            </Button>
+          </div>
+        )}
       </section>
     </div>
   );

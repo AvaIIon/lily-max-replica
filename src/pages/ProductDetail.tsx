@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { Header } from '@/components/Header';
-import { sampleProducts, getFormattedPrice, Product, generateHandle } from '@/data/productData';
+import { sampleProducts, getFormattedPrice, Product, generateHandle, loadBedsmartProducts } from '@/data/productData';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
 import { ChevronLeft, ShoppingCart, Star, Check } from 'lucide-react';
@@ -15,18 +15,25 @@ export const ProductDetail = () => {
   const { addToCart } = useCart();
   const { toast } = useToast();
   const [product, setProduct] = useState<Product | null>(null);
+  const [products, setProducts] = useState<Product[]>([]);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    if (productId) {
-      const foundProduct = sampleProducts.find(p => 
-        (p.handle && p.handle === productId) || 
-        generateHandle(p.title) === productId
-      );
-      setProduct(foundProduct || null);
-    }
+    const fetchProducts = async () => {
+      if (productId) {
+        const allProducts = await loadBedsmartProducts();
+        setProducts(allProducts);
+        const foundProduct = allProducts.find(p => 
+          (p.handle && p.handle === productId) || 
+          generateHandle(p.title) === productId
+        );
+        setProduct(foundProduct || null);
+      }
+    };
+    
+    fetchProducts();
   }, [productId]);
 
   if (!product) {
@@ -57,7 +64,7 @@ export const ProductDetail = () => {
     });
   };
 
-  const relatedProducts = sampleProducts
+  const relatedProducts = products
     .filter(p => p.category === product.category && 
       ((p.handle && p.handle !== product.handle) || 
        generateHandle(p.title) !== generateHandle(product.title)))
