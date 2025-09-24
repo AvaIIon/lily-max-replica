@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Header } from '@/components/Header';
-import { loadBedsmartProducts, getFormattedPrice, generateHandle, getProductsByCategory } from '@/data/productData';
+import { loadBedsmartProducts, getFormattedPrice, generateHandle, getProductsByCategory, clearProductCache } from '@/data/productData';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
 import { ShoppingCart, Star } from 'lucide-react';
@@ -20,6 +20,7 @@ export const DressersStorage = () => {
       try {
         const allProducts = await loadBedsmartProducts();
         const dresserProducts = getProductsByCategory(allProducts, 'Dressers & Storage');
+        console.log(`Found ${dresserProducts.length} dresser & storage products out of ${allProducts.length} total products`);
         setProducts(dresserProducts);
       } catch (error) {
         console.error('Error loading products:', error);

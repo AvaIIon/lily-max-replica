@@ -16,29 +16,43 @@ export interface Product {
 export const categorizeProduct = (product: Product): string => {
   const title = product.title.toLowerCase();
   
-  // Loft beds - look for loft bed keywords
-  if (title.includes('loft') || title.includes('ultra low') || title.includes('ultra high')) {
-    return 'Loft Beds';
-  }
-  
-  // Single beds - look for single/twin bed keywords (excluding bunk beds and loft beds)
-  if ((title.includes('twin') || title.includes('single')) && 
-      !title.includes('bunk') && 
-      !title.includes('loft') && 
-      !title.includes('over') &&
-      (title.includes('basic bed') || title.includes('traditional bed') || title.includes('platform bed'))) {
-    return 'Single Beds';
-  }
-  
-  // Dressers & Storage - look for storage keywords
+  // Dressers & Storage - look for storage keywords first (most specific)
   if (title.includes('dresser') || 
       title.includes('drawer') || 
       title.includes('storage') || 
       title.includes('bookcase') || 
       title.includes('nightstand') || 
       title.includes('night stand') ||
-      title.includes('chest')) {
+      title.includes('chest') ||
+      title.includes('tray') ||
+      title.includes('desk') ||
+      title.includes('chair')) {
     return 'Dressers & Storage';
+  }
+  
+  // Loft beds - look for loft bed keywords
+  if (title.includes('loft') || 
+      title.includes('high') && (title.includes('bed') || title.includes('bunk'))) {
+    return 'Loft Beds';
+  }
+  
+  // Single beds - look for single/twin bed keywords (excluding bunk beds and loft beds)
+  if (((title.includes('twin') || title.includes('full') || title.includes('single')) && 
+       (title.includes('basic bed') || title.includes('platform bed'))) ||
+      (title.includes('bed') && !title.includes('bunk') && !title.includes('loft') && !title.includes('over') && !title.includes('high'))) {
+    return 'Single Beds';
+  }
+  
+  // Bunk beds - anything with bunk, over, or remaining bed products
+  if (title.includes('bunk') || 
+      title.includes('over') || 
+      title.includes('trundle')) {
+    return 'Bunk Beds';
+  }
+  
+  // Default categorization based on most likely category
+  if (title.includes('bed')) {
+    return 'Single Beds';
   }
   
   // Default to Bunk Beds for everything else
@@ -103,13 +117,19 @@ export const generateHandle = (title: string): string => {
 // Load products with enhanced categorization
 let cachedProducts: Product[] | null = null;
 
+// Clear cache function for debugging
+export const clearProductCache = () => {
+  cachedProducts = null;
+};
+
 export const loadBedsmartProducts = async (): Promise<Product[]> => {
   if (cachedProducts) {
     return cachedProducts;
   }
   
   try {
-    const response = await fetch('/src/data/bedsmart_products.csv');
+    console.log('Loading products from CSV...');
+    const response = await fetch('/bedsmart_products.csv');
     if (!response.ok) {
       console.log('CSV file not found, using sample data');
       return sampleProducts;
@@ -117,12 +137,20 @@ export const loadBedsmartProducts = async (): Promise<Product[]> => {
     
     const csvContent = await response.text();
     const products = parseProductData(csvContent);
+    console.log(`Parsed ${products.length} products from CSV`);
     
     // Add enhanced categorization to each product
     const categorizedProducts = products.map(product => ({
       ...product,
       category: categorizeProduct(product)
     }));
+    
+    // Log categorization summary
+    const categoryCount = categorizedProducts.reduce((acc, product) => {
+      acc[product.category] = (acc[product.category] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+    console.log('Products by category:', categoryCount);
     
     cachedProducts = categorizedProducts;
     return categorizedProducts;

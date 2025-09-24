@@ -20,6 +20,7 @@ export const LoftBeds = () => {
       try {
         const allProducts = await loadBedsmartProducts();
         const loftBedProducts = getProductsByCategory(allProducts, 'Loft Beds');
+        console.log(`Found ${loftBedProducts.length} loft bed products out of ${allProducts.length} total products`);
         setProducts(loftBedProducts);
       } catch (error) {
         console.error('Error loading products:', error);

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Header } from '@/components/Header';
-import { loadBedsmartProducts, getFormattedPrice, generateHandle, getProductsByCategory } from '@/data/productData';
+import { loadBedsmartProducts, getFormattedPrice, generateHandle, getProductsByCategory, clearProductCache } from '@/data/productData';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
 import { ShoppingCart, Star } from 'lucide-react';
@@ -18,8 +18,11 @@ export const BunkBeds = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        // Clear cache to force fresh load
+        clearProductCache();
         const allProducts = await loadBedsmartProducts();
         const bunkBedProducts = getProductsByCategory(allProducts, 'Bunk Beds');
+        console.log(`Found ${bunkBedProducts.length} bunk bed products out of ${allProducts.length} total products`);
         setProducts(bunkBedProducts);
       } catch (error) {
         console.error('Error loading products:', error);

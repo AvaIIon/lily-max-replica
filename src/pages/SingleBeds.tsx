@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Header } from '@/components/Header';
-import { loadBedsmartProducts, getFormattedPrice, generateHandle, getProductsByCategory } from '@/data/productData';
+import { loadBedsmartProducts, getFormattedPrice, generateHandle, getProductsByCategory, clearProductCache } from '@/data/productData';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
 import { ShoppingCart, Star } from 'lucide-react';
@@ -20,6 +20,7 @@ export const SingleBeds = () => {
       try {
         const allProducts = await loadBedsmartProducts();
         const singleBedProducts = getProductsByCategory(allProducts, 'Single Beds');
+        console.log(`Found ${singleBedProducts.length} single bed products out of ${allProducts.length} total products`);
         setProducts(singleBedProducts);
       } catch (error) {
         console.error('Error loading products:', error);
