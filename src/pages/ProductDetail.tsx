@@ -23,12 +23,21 @@ export const ProductDetail = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       if (productId) {
+        console.log('Looking for product with ID:', productId);
         const allProducts = await loadBedsmartProducts();
         setProducts(allProducts);
+        
+        console.log('Available products:', allProducts.map(p => ({ 
+          title: p.title, 
+          handle: p.handle, 
+          generated: generateHandle(p.title) 
+        })).slice(0, 5));
+        
         const foundProduct = allProducts.find(p => 
           (p.handle && p.handle === productId) || 
           generateHandle(p.title) === productId
         );
+        console.log('Found product:', foundProduct ? foundProduct.title : 'None');
         setProduct(foundProduct || null);
       }
     };

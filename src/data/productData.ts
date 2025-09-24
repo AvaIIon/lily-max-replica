@@ -139,10 +139,11 @@ export const loadBedsmartProducts = async (): Promise<Product[]> => {
     const products = parseProductData(csvContent);
     console.log(`Parsed ${products.length} products from CSV`);
     
-    // Add enhanced categorization to each product
+    // Add enhanced categorization and handle to each product
     const categorizedProducts = products.map(product => ({
       ...product,
-      category: categorizeProduct(product)
+      category: categorizeProduct(product),
+      handle: generateHandle(product.title)
     }));
     
     // Log categorization summary
