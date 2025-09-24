@@ -16,6 +16,13 @@ export const Cart = () => {
     }).format(price);
   };
 
+  // Ensure we can handle price strings like "$1,234.56"
+  const parsePrice = (priceString: string): number => {
+    if (!priceString) return 0;
+    const cleaned = priceString.replace(/[^\d.-]/g, '');
+    return parseFloat(cleaned) || 0;
+  };
+
   if (items.length === 0) {
     return (
       <div className="min-h-screen bg-background">
@@ -58,7 +65,7 @@ export const Cart = () => {
             <div className="space-y-4">
               {items.map((item) => {
                 const pricing = getFormattedPrice(item.product);
-                const itemPrice = parseFloat(item.product.salePrice || item.product.price || '0');
+                const itemPrice = parsePrice(item.product.salePrice || item.product.price || '0');
                 
                 return (
                   <div key={`${item.product.handle}-${JSON.stringify(item.selectedOptions)}`} 
