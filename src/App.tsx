@@ -5,6 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import { BunkBeds } from "./pages/BunkBeds";
+import { LoftBeds } from "./pages/LoftBeds";
+import { SingleBeds } from "./pages/SingleBeds";
+import { DressersStorage } from "./pages/DressersStorage";
 import { ProductDetail } from "./pages/ProductDetail";
 import { Cart } from "./pages/Cart";
 import { CartProvider } from "./contexts/CartContext";
@@ -22,6 +25,9 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/bunk-beds" element={<BunkBeds />} />
+            <Route path="/loft-beds" element={<LoftBeds />} />
+            <Route path="/single-beds" element={<SingleBeds />} />
+            <Route path="/dressers-storage" element={<DressersStorage />} />
             <Route path="/product/:productId" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

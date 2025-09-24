@@ -39,9 +39,9 @@ export const Header = () => {
           {/* Desktop navigation */}
           <div className="hidden lg:flex items-center space-x-8">
             <Link to="/bunk-beds" className="text-gray-700 hover:text-primary font-medium">Bunk Beds</Link>
-            <a href="#" className="text-gray-700 hover:text-primary font-medium">Loft Beds</a>
-            <a href="#" className="text-gray-700 hover:text-primary font-medium">Single Beds</a>
-            <a href="#" className="text-gray-700 hover:text-primary font-medium">Dressers & Storage</a>
+            <Link to="/loft-beds" className="text-gray-700 hover:text-primary font-medium">Loft Beds</Link>
+            <Link to="/single-beds" className="text-gray-700 hover:text-primary font-medium">Single Beds</Link>
+            <Link to="/dressers-storage" className="text-gray-700 hover:text-primary font-medium">Dressers & Storage</Link>
           </div>
 
           {/* Right side actions */}
@@ -82,9 +82,9 @@ export const Header = () => {
           <div className="lg:hidden border-t border-gray-100 py-4">
             <div className="flex flex-col space-y-4">
               <Link to="/bunk-beds" className="text-gray-700 hover:text-primary font-medium">Bunk Beds</Link>
-              <a href="#" className="text-gray-700 hover:text-primary font-medium">Loft Beds</a>
-              <a href="#" className="text-gray-700 hover:text-primary font-medium">Single Beds</a>
-              <a href="#" className="text-gray-700 hover:text-primary font-medium">Dressers & Storage</a>
+              <Link to="/loft-beds" className="text-gray-700 hover:text-primary font-medium">Loft Beds</Link>
+              <Link to="/single-beds" className="text-gray-700 hover:text-primary font-medium">Single Beds</Link>
+              <Link to="/dressers-storage" className="text-gray-700 hover:text-primary font-medium">Dressers & Storage</Link>
               
               <div className="md:hidden flex items-center space-x-2 bg-gray-50 rounded-lg px-3 py-2 mt-4">
                 <Search className="h-4 w-4 text-gray-400" />
