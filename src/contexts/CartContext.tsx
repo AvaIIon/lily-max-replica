@@ -94,9 +94,16 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return items.reduce((total, item) => total + item.quantity, 0);
   };
 
+  const parsePrice = (priceString: string): number => {
+    if (!priceString) return 0;
+    // Remove currency symbols and non-numeric characters except decimal point
+    const cleaned = priceString.replace(/[^\d.-]/g, '');
+    return parseFloat(cleaned) || 0;
+  };
+
   const getTotalPrice = () => {
     return items.reduce((total, item) => {
-      const price = parseFloat(item.product.salePrice || item.product.price || '0');
+      const price = parsePrice(item.product.salePrice || item.product.price || '0');
       return total + (price * item.quantity);
     }, 0);
   };
