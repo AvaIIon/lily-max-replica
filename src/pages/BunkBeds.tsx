@@ -47,15 +47,20 @@ export const BunkBeds = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-50 to-indigo-50 py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold text-foreground mb-4">
-            Bunk Beds Collection
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Space-saving bunk beds perfect for siblings, sleepovers, and maximizing bedroom functionality.
-          </p>
+      <section className="relative bg-gradient-to-br from-blue-500 via-cyan-500 to-teal-600 py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-8 max-w-3xl mx-auto">
+            <h1 className="text-5xl font-bold text-white mb-6 drop-shadow-lg">
+              🏢 Bunk Beds Collection
+            </h1>
+            <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+              Space-saving bunk beds perfect for siblings, sleepovers, and maximizing bedroom functionality. Double the fun, half the space!
+            </p>
+          </div>
         </div>
+        <div className="absolute top-10 left-10 w-24 h-24 bg-yellow-300/20 rounded-full blur-xl"></div>
+        <div className="absolute bottom-10 right-10 w-28 h-28 bg-pink-300/20 rounded-full blur-xl"></div>
       </section>
 
       {/* Breadcrumb */}
@@ -91,19 +96,20 @@ export const BunkBeds = () => {
               const productHandle = product.handle || generateHandle(product.title);
               
               return (
-                <Card key={productHandle} className="group hover:shadow-lg transition-shadow duration-300">
+                <Card key={productHandle} className="group hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 border-2 hover:border-blue-300 bg-gradient-to-br from-white to-blue-50">
                   <div className="relative overflow-hidden rounded-t-lg">
                     <img
                       src={product.imageUrls[0] || "https://via.placeholder.com/300x200"}
                       alt={product.title}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                       onError={(e) => {
                         e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
                       }}
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     {product.salePrice && product.price && (
-                      <Badge className="absolute top-3 left-3 bg-red-500 text-white">
-                        Sale
+                      <Badge className="absolute top-3 left-3 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg animate-pulse">
+                        🔥 Sale
                       </Badge>
                     )}
                   </div>
@@ -138,7 +144,7 @@ export const BunkBeds = () => {
                     <div className="flex space-x-2">
                       <Button
                         onClick={() => handleAddToCart(product)}
-                        className="flex-1"
+                        className="flex-1 bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
                         size="sm"
                       >
                         <ShoppingCart className="w-4 h-4 mr-1" />
