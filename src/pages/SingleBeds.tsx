@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Header } from '@/components/Header';
-import { PromotionalBanner } from '@/components/PromotionalBanner';
+import { MiniPromoBanner } from '@/components/MiniPromoBanner';
 import { loadBedsmartProducts, getFormattedPrice, generateHandle, getProductsByCategory, clearProductCache } from '@/data/productData';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
@@ -85,11 +85,6 @@ export const SingleBeds = () => {
         </div>
       </nav>
 
-      {/* Promotional Banner */}
-      <div className="container mx-auto px-4">
-        <PromotionalBanner currentCategory="Single Beds" />
-      </div>
-
       {/* Products Grid */}
       <section className="container mx-auto px-4 pb-16">
         <div className="flex justify-between items-center mb-12">
@@ -110,13 +105,21 @@ export const SingleBeds = () => {
         ) : products.length > 0 ? (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {displayedProducts.map((product) => {
-              const pricing = getFormattedPrice(product);
-              const productHandle = product.handle || generateHandle(product.title);
-              
-              return (
-                <Card key={productHandle} className="group hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 border-2 hover:border-purple-300 bg-gradient-to-br from-white to-purple-50">
-                  <div className="relative overflow-hidden rounded-t-lg">
+              {displayedProducts.map((product, index) => {
+                const shouldShowPromo = (index + 1) % 6 === 0;
+                const promoType = ['sale', 'shipping', 'guarantee', 'category'][index % 4] as 'sale' | 'shipping' | 'guarantee' | 'category';
+                const pricing = getFormattedPrice(product);
+                const productHandle = product.handle || generateHandle(product.title);
+                
+                return (
+                  <React.Fragment key={productHandle}>
+                    {shouldShowPromo && (
+                      <div className="col-span-1">
+                        <MiniPromoBanner type={promoType} currentCategory="Single Beds" />
+                      </div>
+                    )}
+                    <Card className="group hover:shadow-2xl hover:shadow-purple-500/20 transition-all duration-300 border-2 hover:border-purple-300 bg-gradient-to-br from-white to-purple-50">
+                      <div className="relative overflow-hidden rounded-t-lg">
                     <img
                       src={product.imageUrls[0] || "https://via.placeholder.com/300x200"}
                       alt={product.title}
@@ -170,9 +173,10 @@ export const SingleBeds = () => {
                         Add to Cart
                       </Button>
                     </div>
-                  </CardContent>
-                </Card>
-              );
+                    </CardContent>
+                    </Card>
+                  </React.Fragment>
+                );
             })}
             </div>
             
