@@ -4,14 +4,18 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Header } from '@/components/Header';
+import { PromotionalBanner } from '@/components/PromotionalBanner';
 import { loadBedsmartProducts, getFormattedPrice, generateHandle, getProductsByCategory, clearProductCache } from '@/data/productData';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
-import { ShoppingCart, Star } from 'lucide-react';
+import { ShoppingCart, Star, ChevronDown } from 'lucide-react';
 
 export const BunkBeds = () => {
   const [products, setProducts] = useState<any[]>([]);
+  const [displayedProducts, setDisplayedProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [productsPerPage] = useState(8);
+  const [currentPage, setCurrentPage] = useState(1);
   const { addToCart } = useCart();
   const { toast } = useToast();
 
@@ -24,6 +28,7 @@ export const BunkBeds = () => {
         const bunkBedProducts = getProductsByCategory(allProducts, 'Bunk Beds');
         console.log(`Found ${bunkBedProducts.length} bunk bed products out of ${allProducts.length} total products`);
         setProducts(bunkBedProducts);
+        setDisplayedProducts(bunkBedProducts.slice(0, productsPerPage));
       } catch (error) {
         console.error('Error loading products:', error);
       } finally {
@@ -41,6 +46,16 @@ export const BunkBeds = () => {
       description: `${product.title} has been added to your cart.`,
     });
   };
+
+  const loadMoreProducts = () => {
+    const nextPage = currentPage + 1;
+    const startIndex = 0;
+    const endIndex = nextPage * productsPerPage;
+    setDisplayedProducts(products.slice(startIndex, endIndex));
+    setCurrentPage(nextPage);
+  };
+
+  const hasMoreProducts = displayedProducts.length < products.length;
 
   return (
     <div className="min-h-screen bg-background">
@@ -72,15 +87,20 @@ export const BunkBeds = () => {
         </div>
       </nav>
 
+      {/* Promotional Banner */}
+      <div className="container mx-auto px-4">
+        <PromotionalBanner currentCategory="Bunk Beds" />
+      </div>
+
       {/* Products Grid */}
       <section className="container mx-auto px-4 pb-16">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-12">
           <div>
-            <h2 className="text-2xl font-bold text-foreground">
-              Bunk Beds ({products.length} products)
+            <h2 className="text-3xl font-bold text-foreground mb-2">
+              Bunk Beds Collection
             </h2>
-            <p className="text-muted-foreground mt-2">
-              Safe and stylish bunk beds for shared spaces
+            <p className="text-muted-foreground text-lg">
+              Safe and stylish bunk beds for shared spaces • {products.length} total products
             </p>
           </div>
         </div>
@@ -90,8 +110,9 @@ export const BunkBeds = () => {
             <p className="text-muted-foreground">Loading products...</p>
           </div>
         ) : products.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.map((product) => {
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+              {displayedProducts.map((product) => {
               const pricing = getFormattedPrice(product);
               const productHandle = product.handle || generateHandle(product.title);
               
@@ -155,7 +176,22 @@ export const BunkBeds = () => {
                 </Card>
               );
             })}
-          </div>
+            </div>
+            
+            {/* Load More Button */}
+            {hasMoreProducts && (
+              <div className="text-center mt-12">
+                <Button
+                  onClick={loadMoreProducts}
+                  size="lg"
+                  className="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+                >
+                  <ChevronDown className="w-5 h-5 mr-2" />
+                  Load More Products ({products.length - displayedProducts.length} remaining)
+                </Button>
+              </div>
+            )}
+          </>
         ) : (
           <div className="text-center py-16">
             <p className="text-muted-foreground mb-4">No bunk beds found in our current inventory.</p>

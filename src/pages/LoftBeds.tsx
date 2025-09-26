@@ -4,14 +4,18 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Header } from '@/components/Header';
+import { PromotionalBanner } from '@/components/PromotionalBanner';
 import { loadBedsmartProducts, getFormattedPrice, generateHandle, getProductsByCategory } from '@/data/productData';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
-import { ShoppingCart, Star } from 'lucide-react';
+import { ShoppingCart, Star, ChevronDown } from 'lucide-react';
 
 export const LoftBeds = () => {
   const [products, setProducts] = useState<any[]>([]);
+  const [displayedProducts, setDisplayedProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [productsPerPage] = useState(8);
+  const [currentPage, setCurrentPage] = useState(1);
   const { addToCart } = useCart();
   const { toast } = useToast();
 
@@ -22,6 +26,7 @@ export const LoftBeds = () => {
         const loftBedProducts = getProductsByCategory(allProducts, 'Loft Beds');
         console.log(`Found ${loftBedProducts.length} loft bed products out of ${allProducts.length} total products`);
         setProducts(loftBedProducts);
+        setDisplayedProducts(loftBedProducts.slice(0, productsPerPage));
       } catch (error) {
         console.error('Error loading products:', error);
       } finally {
@@ -39,6 +44,16 @@ export const LoftBeds = () => {
       description: `${product.title} has been added to your cart.`,
     });
   };
+
+  const loadMoreProducts = () => {
+    const nextPage = currentPage + 1;
+    const startIndex = 0;
+    const endIndex = nextPage * productsPerPage;
+    setDisplayedProducts(products.slice(startIndex, endIndex));
+    setCurrentPage(nextPage);
+  };
+
+  const hasMoreProducts = displayedProducts.length < products.length;
 
   return (
     <div className="min-h-screen bg-background">
@@ -70,15 +85,20 @@ export const LoftBeds = () => {
         </div>
       </nav>
 
+      {/* Promotional Banner */}
+      <div className="container mx-auto px-4">
+        <PromotionalBanner currentCategory="Loft Beds" />
+      </div>
+
       {/* Products Grid */}
       <section className="container mx-auto px-4 pb-16">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-12">
           <div>
-            <h2 className="text-2xl font-bold text-foreground">
-              Loft Beds ({products.length} products)
+            <h2 className="text-3xl font-bold text-foreground mb-2">
+              Loft Beds Collection
             </h2>
-            <p className="text-muted-foreground mt-2">
-              Space-saving solutions for modern living
+            <p className="text-muted-foreground text-lg">
+              Space-saving solutions for modern living • {products.length} total products
             </p>
           </div>
         </div>
@@ -88,8 +108,9 @@ export const LoftBeds = () => {
             <p className="text-muted-foreground">Loading products...</p>
           </div>
         ) : products.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products.map((product) => {
+          <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+              {displayedProducts.map((product) => {
               const pricing = getFormattedPrice(product);
               const productHandle = product.handle || generateHandle(product.title);
               
@@ -153,7 +174,22 @@ export const LoftBeds = () => {
                 </Card>
               );
             })}
-          </div>
+            </div>
+            
+            {/* Load More Button */}
+            {hasMoreProducts && (
+              <div className="text-center mt-12">
+                <Button
+                  onClick={loadMoreProducts}
+                  size="lg"
+                  className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
+                >
+                  <ChevronDown className="w-5 h-5 mr-2" />
+                  Load More Products ({products.length - displayedProducts.length} remaining)
+                </Button>
+              </div>
+            )}
+          </>
         ) : (
           <div className="text-center py-16">
             <p className="text-muted-foreground mb-4">No loft beds found in our current inventory.</p>
