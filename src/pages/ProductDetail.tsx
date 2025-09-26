@@ -38,6 +38,10 @@ export const ProductDetail = () => {
           generateHandle(p.title) === productId
         );
         console.log('Found product:', foundProduct ? foundProduct.title : 'None');
+        if (foundProduct) {
+          console.log('Product options:', foundProduct.options);
+          console.log('Product data:', foundProduct);
+        }
         setProduct(foundProduct || null);
       }
     };
