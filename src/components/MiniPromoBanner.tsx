@@ -11,15 +11,15 @@ interface MiniPromoBannerProps {
 export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps) => {
   if (type === 'sale') {
     return (
-      <Card className="group h-full hover:shadow-2xl hover:shadow-orange/30 transition-all duration-300 border-2 hover:border-bright-yellow gradient-sunset overflow-hidden animate-pulse-colors">
-        <div className="relative overflow-hidden rounded-t-lg h-48 gradient-warm">
+      <Card className="group h-full hover:shadow-2xl hover:shadow-green-500/30 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-green-500 to-emerald-600 overflow-hidden">
+        <div className="relative overflow-hidden rounded-t-lg h-48">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
               <div className="text-6xl mb-2 animate-bounce-slow">🔥</div>
-              <div className="text-2xl font-bold drop-shadow-lg">FLASH SALE!</div>
+              <div className="text-2xl font-bold drop-shadow-lg text-white">FLASH SALE!</div>
             </div>
           </div>
-          <div className="absolute top-3 left-3 bg-bright-yellow/90 text-black rounded-full px-3 py-1 text-xs font-bold shadow-lg">
+          <div className="absolute top-3 left-3 bg-white/20 text-white rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-white/30">
             LIMITED TIME
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -51,15 +51,15 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
 
   if (type === 'shipping') {
     return (
-      <Card className="group h-full hover:shadow-2xl hover:shadow-turquoise/30 transition-all duration-300 border-2 hover:border-mint-green gradient-ocean overflow-hidden animate-pulse-colors">
-        <div className="relative overflow-hidden rounded-t-lg h-48 gradient-cool">
+      <Card className="group h-full hover:shadow-2xl hover:shadow-green-500/30 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-green-500 to-emerald-600 overflow-hidden">
+        <div className="relative overflow-hidden rounded-t-lg h-48">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
               <div className="text-6xl mb-2 animate-bounce-slow">🚚</div>
-              <div className="text-2xl font-bold drop-shadow-lg">FREE SHIPPING</div>
+              <div className="text-2xl font-bold drop-shadow-lg text-white">FREE SHIPPING</div>
             </div>
           </div>
-          <div className="absolute top-3 left-3 bg-bright-yellow/90 text-black rounded-full px-3 py-1 text-xs font-bold shadow-lg">
+          <div className="absolute top-3 left-3 bg-white/20 text-white rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-white/30">
             ON ORDERS $299+
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -91,15 +91,15 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
 
   if (type === 'guarantee') {
     return (
-      <Card className="group h-full hover:shadow-2xl hover:shadow-lavender/30 transition-all duration-300 border-2 hover:border-playful-purple gradient-pastel overflow-hidden animate-pulse-colors">
-        <div className="relative overflow-hidden rounded-t-lg h-48 gradient-nature">
+      <Card className="group h-full hover:shadow-2xl hover:shadow-green-500/30 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-green-500 to-emerald-600 overflow-hidden">
+        <div className="relative overflow-hidden rounded-t-lg h-48">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
               <div className="text-6xl mb-2 animate-bounce-slow">⭐</div>
-              <div className="text-2xl font-bold drop-shadow-lg">QUALITY PROMISE</div>
+              <div className="text-2xl font-bold drop-shadow-lg text-white">QUALITY PROMISE</div>
             </div>
           </div>
-          <div className="absolute top-3 left-3 bg-bright-yellow/90 text-black rounded-full px-3 py-1 text-xs font-bold shadow-lg">
+          <div className="absolute top-3 left-3 bg-white/20 text-white rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-white/30">
             PREMIUM QUALITY
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -140,15 +140,15 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
   const randomCategory = otherCategories[Math.floor(Math.random() * otherCategories.length)];
 
   return (
-    <Card className="group h-full hover:shadow-2xl hover:shadow-coral-red/30 transition-all duration-300 border-2 hover:border-peach gradient-rainbow overflow-hidden animate-pulse-colors">
-      <div className="relative overflow-hidden rounded-t-lg h-48 gradient-sunset">
+    <Card className="group h-full hover:shadow-2xl hover:shadow-green-500/30 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-green-500 to-emerald-600 overflow-hidden">
+      <div className="relative overflow-hidden rounded-t-lg h-48">
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
             <div className="text-6xl mb-2 animate-bounce-slow">{randomCategory.icon}</div>
-            <div className="text-xl font-bold drop-shadow-lg">EXPLORE MORE</div>
+            <div className="text-xl font-bold drop-shadow-lg text-white">EXPLORE MORE</div>
           </div>
         </div>
-        <div className="absolute top-3 left-3 bg-bright-yellow/90 text-black rounded-full px-3 py-1 text-xs font-bold shadow-lg">
+        <div className="absolute top-3 left-3 bg-white/20 text-white rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-white/30">
           NEW COLLECTION
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
