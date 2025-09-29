@@ -11,7 +11,7 @@ interface MiniPromoBannerProps {
 export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps) => {
   if (type === 'sale') {
     return (
-      <Card className="group h-full hover:shadow-2xl hover:shadow-orange-500/30 transition-all duration-300 border-2 hover:border-orange-300 bg-gradient-to-br from-orange-500 to-red-500 overflow-hidden">
+      <Card className="group h-full hover:shadow-2xl hover:shadow-pink-500/30 transition-all duration-300 border-2 hover:border-pink-300 bg-gradient-to-br from-pink-500 via-red-500 to-orange-500 overflow-hidden">
         <div className="relative overflow-hidden rounded-t-lg h-48">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
@@ -19,7 +19,7 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
               <div className="text-2xl font-bold drop-shadow-lg text-white">FLASH SALE!</div>
             </div>
           </div>
-          <div className="absolute top-3 left-3 bg-white/20 text-white rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-white/30">
+          <div className="absolute top-3 left-3 bg-yellow-400/90 text-black rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-yellow-300">
             LIMITED TIME
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -51,7 +51,7 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
 
   if (type === 'shipping') {
     return (
-      <Card className="group h-full hover:shadow-2xl hover:shadow-green-500/30 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-green-500 to-emerald-600 overflow-hidden">
+      <Card className="group h-full hover:shadow-2xl hover:shadow-emerald-500/30 transition-all duration-300 border-2 hover:border-emerald-300 bg-gradient-to-br from-emerald-400 via-green-500 to-teal-600 overflow-hidden">
         <div className="relative overflow-hidden rounded-t-lg h-48">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
@@ -59,7 +59,7 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
               <div className="text-2xl font-bold drop-shadow-lg text-white">FREE SHIPPING</div>
             </div>
           </div>
-          <div className="absolute top-3 left-3 bg-white/20 text-white rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-white/30">
+          <div className="absolute top-3 left-3 bg-lime-400/90 text-black rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-lime-300">
             ON ORDERS $299+
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -91,7 +91,7 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
 
   if (type === 'guarantee') {
     return (
-      <Card className="group h-full hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 border-2 hover:border-purple-300 bg-gradient-to-br from-purple-500 to-pink-500 overflow-hidden">
+      <Card className="group h-full hover:shadow-2xl hover:shadow-violet-500/30 transition-all duration-300 border-2 hover:border-violet-300 bg-gradient-to-br from-violet-500 via-purple-500 to-fuchsia-500 overflow-hidden">
         <div className="relative overflow-hidden rounded-t-lg h-48">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
@@ -99,7 +99,7 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
               <div className="text-2xl font-bold drop-shadow-lg text-white">QUALITY PROMISE</div>
             </div>
           </div>
-          <div className="absolute top-3 left-3 bg-white/20 text-white rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-white/30">
+          <div className="absolute top-3 left-3 bg-cyan-400/90 text-black rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-cyan-300">
             PREMIUM QUALITY
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -140,7 +140,7 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
   const randomCategory = otherCategories[Math.floor(Math.random() * otherCategories.length)];
 
   return (
-    <Card className="group h-full hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-300 border-2 hover:border-blue-300 bg-gradient-to-br from-blue-500 to-cyan-600 overflow-hidden">
+    <Card className="group h-full hover:shadow-2xl hover:shadow-indigo-500/30 transition-all duration-300 border-2 hover:border-indigo-300 bg-gradient-to-br from-indigo-500 via-blue-500 to-sky-500 overflow-hidden">
       <div className="relative overflow-hidden rounded-t-lg h-48">
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
@@ -148,7 +148,7 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
             <div className="text-xl font-bold drop-shadow-lg text-white">EXPLORE MORE</div>
           </div>
         </div>
-        <div className="absolute top-3 left-3 bg-white/20 text-white rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-white/30">
+        <div className="absolute top-3 left-3 bg-rose-400/90 text-black rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-rose-300">
           NEW COLLECTION
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
