@@ -23,12 +23,26 @@
     --fun-orange: 35 85% 55%;       /* Orange accent */
     --playful-purple: 270 65% 55%;  /* Purple accent */
     --bright-yellow: 45 95% 60%;    /* Yellow accent */
+    --coral-red: 15 80% 60%;        /* Coral red accent */
+    --mint-green: 150 70% 50%;      /* Mint green accent */
+    --lavender: 280 60% 70%;        /* Lavender accent */
+    --peach: 25 85% 65%;            /* Peach accent */
+    --turquoise: 180 70% 50%;       /* Turquoise accent */
     
     /* Gradient Backgrounds */
     --gradient-primary: linear-gradient(135deg, hsl(var(--max-blue)), hsl(var(--lily-pink)));
     --gradient-warm: linear-gradient(135deg, hsl(var(--fun-orange)), hsl(var(--cta-pink)));
     --gradient-cool: linear-gradient(135deg, hsl(var(--max-blue)), hsl(var(--playful-purple)));
     --gradient-nature: linear-gradient(135deg, hsl(var(--sale-green)), hsl(35 65% 50%));
+    --gradient-sunset: linear-gradient(135deg, hsl(var(--peach)), hsl(var(--coral-red)));
+    --gradient-ocean: linear-gradient(135deg, hsl(var(--turquoise)), hsl(var(--max-blue)));
+    --gradient-rainbow: linear-gradient(90deg, hsl(var(--coral-red)), hsl(var(--fun-orange)), hsl(var(--bright-yellow)), hsl(var(--mint-green)), hsl(var(--max-blue)), hsl(var(--playful-purple)), hsl(var(--lily-pink)));
+    --gradient-pastel: linear-gradient(135deg, hsl(var(--lavender)), hsl(var(--lily-pink)));
+    
+    /* Colorful Shadows */
+    --shadow-colorful: 0 10px 30px -5px hsl(var(--lily-pink) / 0.3);
+    --shadow-blue: 0 10px 30px -5px hsl(var(--max-blue) / 0.3);
+    --shadow-orange: 0 10px 30px -5px hsl(var(--fun-orange) / 0.3);
     
     --primary: 200 85% 55%;
     --primary-foreground: 0 0% 100%;
@@ -36,11 +50,11 @@
     --secondary: 320 85% 55%;
     --secondary-foreground: 0 0% 100%;
 
+    --accent: 280 60% 70%;
+    --accent-foreground: 0 0% 100%;
+
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 220 9% 46%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
@@ -127,5 +141,77 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     overflow: hidden;
+  }
+
+  /* Colorful utility classes */
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-warm {
+    background: var(--gradient-warm);
+  }
+
+  .gradient-cool {
+    background: var(--gradient-cool);
+  }
+
+  .gradient-nature {
+    background: var(--gradient-nature);
+  }
+
+  .gradient-sunset {
+    background: var(--gradient-sunset);
+  }
+
+  .gradient-ocean {
+    background: var(--gradient-ocean);
+  }
+
+  .gradient-rainbow {
+    background: var(--gradient-rainbow);
+  }
+
+  .gradient-pastel {
+    background: var(--gradient-pastel);
+  }
+
+  .shadow-colorful {
+    box-shadow: var(--shadow-colorful);
+  }
+
+  .shadow-blue {
+    box-shadow: var(--shadow-blue);
+  }
+
+  .shadow-orange {
+    box-shadow: var(--shadow-orange);
+  }
+
+  /* Animated elements */
+  .animate-bounce-slow {
+    animation: bounce 3s infinite;
+  }
+
+  .animate-pulse-colors {
+    animation: pulse-colors 2s infinite alternate;
+  }
+
+  @keyframes pulse-colors {
+    0% { background: hsl(var(--lily-pink)); }
+    25% { background: hsl(var(--max-blue)); }
+    50% { background: hsl(var(--fun-orange)); }
+    75% { background: hsl(var(--mint-green)); }
+    100% { background: hsl(var(--playful-purple)); }
+  }
+
+  /* Hover effects */
+  .hover-gradient {
+    transition: all 0.3s ease;
+  }
+
+  .hover-gradient:hover {
+    background: var(--gradient-rainbow);
+    transform: translateY(-2px);
   }
 }
