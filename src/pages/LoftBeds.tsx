@@ -105,18 +105,315 @@ export const LoftBeds = () => {
         ) : products.length > 0 ? (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {displayedProducts.map((product, index) => {
-                const shouldShowPromo = (index + 1) % 6 === 0;
-                const promoType = ['sale', 'shipping', 'guarantee', 'category'][index % 4] as 'sale' | 'shipping' | 'guarantee' | 'category';
+              {/* First promotional banner - NEW COLLECTION */}
+              <div className="col-span-1">
+                <Card className="bg-gradient-to-br from-green-500 to-emerald-600 text-white p-8 h-full flex flex-col justify-between relative overflow-hidden">
+                  <div className="absolute top-4 left-4">
+                    <Badge className="bg-white/20 text-white border-white/30">
+                      NEW COLLECTION
+                    </Badge>
+                  </div>
+                  <div className="mt-8">
+                    <div className="text-6xl mb-4">🏗️</div>
+                    <h3 className="text-2xl font-bold mb-2">EXPLORE MORE</h3>
+                    <h2 className="text-3xl font-bold mb-4">Loft Beds</h2>
+                    <p className="text-white/90 mb-6">
+                      Discover our amazing loft beds collection with unique designs!
+                    </p>
+                    <div className="mt-auto">
+                      <p className="text-lg font-semibold mb-4">VIEW ALL</p>
+                      <Button className="bg-white/20 hover:bg-white/30 text-white border border-white/30 w-full">
+                        ⚡ Shop Collection →
+                      </Button>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+
+              {/* First 3 products */}
+              {displayedProducts.slice(0, 3).map((product) => {
+                const pricing = getFormattedPrice(product);
+                const productHandle = product.handle || generateHandle(product.title);
+                
+                return (
+                  <Card key={productHandle} className="group hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50">
+                    <div className="relative overflow-hidden rounded-t-lg">
+                      <img
+                        src={product.imageUrls[0] || "https://via.placeholder.com/300x200"}
+                        alt={product.title}
+                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                        onError={(e) => {
+                          e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      {product.salePrice && product.price && (
+                        <Badge className="absolute top-3 left-3 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg animate-pulse">
+                          🔥 Sale
+                        </Badge>
+                      )}
+                    </div>
+                    
+                    <CardContent className="p-4">
+                      <Link to={`/product/${productHandle}`}>
+                        <h3 className="font-semibold text-foreground mb-2 hover:text-primary transition-colors line-clamp-2">
+                          {product.title}
+                        </h3>
+                      </Link>
+                      
+                      <div className="flex items-center mb-2">
+                        <div className="flex items-center">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          ))}
+                        </div>
+                        <span className="text-sm text-muted-foreground ml-2">(0)</span>
+                      </div>
+                      
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-lg font-bold text-primary">{pricing.current}</span>
+                          {pricing.original && (
+                            <span className="text-sm text-muted-foreground line-through">
+                              {pricing.original}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <div className="flex space-x-2">
+                        <Button
+                          onClick={() => handleAddToCart(product)}
+                          className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+                          size="sm"
+                        >
+                          <ShoppingCart className="w-4 h-4 mr-1" />
+                          Add to Cart
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+
+              {/* Next 4 products */}
+              {displayedProducts.slice(3, 7).map((product) => {
+                const pricing = getFormattedPrice(product);
+                const productHandle = product.handle || generateHandle(product.title);
+                
+                return (
+                  <Card key={productHandle} className="group hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50">
+                    <div className="relative overflow-hidden rounded-t-lg">
+                      <img
+                        src={product.imageUrls[0] || "https://via.placeholder.com/300x200"}
+                        alt={product.title}
+                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                        onError={(e) => {
+                          e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      {product.salePrice && product.price && (
+                        <Badge className="absolute top-3 left-3 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg animate-pulse">
+                          🔥 Sale
+                        </Badge>
+                      )}
+                    </div>
+                    
+                    <CardContent className="p-4">
+                      <Link to={`/product/${productHandle}`}>
+                        <h3 className="font-semibold text-foreground mb-2 hover:text-primary transition-colors line-clamp-2">
+                          {product.title}
+                        </h3>
+                      </Link>
+                      
+                      <div className="flex items-center mb-2">
+                        <div className="flex items-center">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          ))}
+                        </div>
+                        <span className="text-sm text-muted-foreground ml-2">(0)</span>
+                      </div>
+                      
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-lg font-bold text-primary">{pricing.current}</span>
+                          {pricing.original && (
+                            <span className="text-sm text-muted-foreground line-through">
+                              {pricing.original}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <div className="flex space-x-2">
+                        <Button
+                          onClick={() => handleAddToCart(product)}
+                          className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+                          size="sm"
+                        >
+                          <ShoppingCart className="w-4 h-4 mr-1" />
+                          Add to Cart
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+
+              {/* FREE SHIPPING Banner */}
+              <div className="col-span-1">
+                <MiniPromoBanner type="shipping" currentCategory="Loft Beds" />
+              </div>
+
+              {/* Next 3 products */}
+              {displayedProducts.slice(7, 10).map((product) => {
+                const pricing = getFormattedPrice(product);
+                const productHandle = product.handle || generateHandle(product.title);
+                
+                return (
+                  <Card key={productHandle} className="group hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50">
+                    <div className="relative overflow-hidden rounded-t-lg">
+                      <img
+                        src={product.imageUrls[0] || "https://via.placeholder.com/300x200"}
+                        alt={product.title}
+                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                        onError={(e) => {
+                          e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      {product.salePrice && product.price && (
+                        <Badge className="absolute top-3 left-3 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg animate-pulse">
+                          🔥 Sale
+                        </Badge>
+                      )}
+                    </div>
+                    
+                    <CardContent className="p-4">
+                      <Link to={`/product/${productHandle}`}>
+                        <h3 className="font-semibold text-foreground mb-2 hover:text-primary transition-colors line-clamp-2">
+                          {product.title}
+                        </h3>
+                      </Link>
+                      
+                      <div className="flex items-center mb-2">
+                        <div className="flex items-center">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          ))}
+                        </div>
+                        <span className="text-sm text-muted-foreground ml-2">(0)</span>
+                      </div>
+                      
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-lg font-bold text-primary">{pricing.current}</span>
+                          {pricing.original && (
+                            <span className="text-sm text-muted-foreground line-through">
+                              {pricing.original}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <div className="flex space-x-2">
+                        <Button
+                          onClick={() => handleAddToCart(product)}
+                          className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+                          size="sm"
+                        >
+                          <ShoppingCart className="w-4 h-4 mr-1" />
+                          Add to Cart
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+
+              {/* Category Banner */}
+              <MiniPromoBanner type="category" currentCategory="Loft Beds" />
+
+              {/* Next 3 products */}
+              {displayedProducts.slice(10, 13).map((product) => {
+                const pricing = getFormattedPrice(product);
+                const productHandle = product.handle || generateHandle(product.title);
+                
+                return (
+                  <Card key={productHandle} className="group hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50">
+                    <div className="relative overflow-hidden rounded-t-lg">
+                      <img
+                        src={product.imageUrls[0] || "https://via.placeholder.com/300x200"}
+                        alt={product.title}
+                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                        onError={(e) => {
+                          e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      {product.salePrice && product.price && (
+                        <Badge className="absolute top-3 left-3 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg animate-pulse">
+                          🔥 Sale
+                        </Badge>
+                      )}
+                    </div>
+                    
+                    <CardContent className="p-4">
+                      <Link to={`/product/${productHandle}`}>
+                        <h3 className="font-semibold text-foreground mb-2 hover:text-primary transition-colors line-clamp-2">
+                          {product.title}
+                        </h3>
+                      </Link>
+                      
+                      <div className="flex items-center mb-2">
+                        <div className="flex items-center">
+                          {[...Array(5)].map((_, i) => (
+                            <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          ))}
+                        </div>
+                        <span className="text-sm text-muted-foreground ml-2">(0)</span>
+                      </div>
+                      
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center space-x-2">
+                          <span className="text-lg font-bold text-primary">{pricing.current}</span>
+                          {pricing.original && (
+                            <span className="text-sm text-muted-foreground line-through">
+                              {pricing.original}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <div className="flex space-x-2">
+                        <Button
+                          onClick={() => handleAddToCart(product)}
+                          className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+                          size="sm"
+                        >
+                          <ShoppingCart className="w-4 h-4 mr-1" />
+                          Add to Cart
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+
+              {/* Remaining products with occasional banners */}
+              {displayedProducts.slice(13).map((product, index) => {
+                const adjustedIndex = index + 13;
+                const shouldShowBanner = (adjustedIndex + 1) % 8 === 0;
+                const bannerType = ['sale', 'guarantee'][Math.floor(adjustedIndex / 8) % 2] as 'sale' | 'guarantee';
                 const pricing = getFormattedPrice(product);
                 const productHandle = product.handle || generateHandle(product.title);
                 
                 return (
                   <React.Fragment key={productHandle}>
-                    {shouldShowPromo && (
-                      <div className="col-span-1">
-                        <MiniPromoBanner type={promoType} currentCategory="Loft Beds" />
-                      </div>
+                    {shouldShowBanner && (
+                      <MiniPromoBanner type={bannerType} currentCategory="Loft Beds" />
                     )}
                     <Card className="group hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50">
                       <div className="relative overflow-hidden rounded-t-lg">
