@@ -105,83 +105,79 @@ export const LoftBeds = () => {
         ) : products.length > 0 ? (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {displayedProducts.reduce((acc, product, index) => {
+              {displayedProducts.map((product, index) => {
+                const shouldShowPromo = (index + 1) % 6 === 0;
+                const promoType = ['sale', 'shipping', 'guarantee', 'category'][index % 4] as 'sale' | 'shipping' | 'guarantee' | 'category';
                 const pricing = getFormattedPrice(product);
                 const productHandle = product.handle || generateHandle(product.title);
                 
-                // Add promotional banner every 8 products at the start of a new row
-                if (index % 8 === 0 && index > 0) {
-                  const promoType = ['sale', 'shipping', 'guarantee', 'category'][Math.floor(index / 8) % 4] as 'sale' | 'shipping' | 'guarantee' | 'category';
-                  acc.push(
-                    <div key={`promo-${index}`} className="col-span-1">
-                      <MiniPromoBanner type={promoType} currentCategory="Loft Beds" />
-                    </div>
-                  );
-                }
-                
-                // Add product card
-                acc.push(
-                  <Card key={productHandle} className="group hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50">
-                    <div className="relative overflow-hidden rounded-t-lg">
-                      <img
-                        src={product.imageUrls[0] || "https://via.placeholder.com/300x200"}
-                        alt={product.title}
-                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                        onError={(e) => {
-                          e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      {product.salePrice && product.price && (
-                        <Badge className="absolute top-3 left-3 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg animate-pulse">
-                          🔥 Sale
-                        </Badge>
-                      )}
-                    </div>
-                    
-                    <CardContent className="p-4">
-                      <Link to={`/product/${productHandle}`}>
-                        <h3 className="font-semibold text-foreground mb-2 hover:text-primary transition-colors line-clamp-2">
-                          {product.title}
-                        </h3>
-                      </Link>
+                return (
+                  <React.Fragment key={productHandle}>
+                    {shouldShowPromo && (
+                      <div className="col-span-1">
+                        <MiniPromoBanner type={promoType} currentCategory="Loft Beds" />
+                      </div>
+                    )}
+                    <Card className="group hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50">
+                      <div className="relative overflow-hidden rounded-t-lg">
+                        <img
+                          src={product.imageUrls[0] || "https://via.placeholder.com/300x200"}
+                          alt={product.title}
+                          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                          onError={(e) => {
+                            e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
+                          }}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        {product.salePrice && product.price && (
+                          <Badge className="absolute top-3 left-3 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg animate-pulse">
+                            🔥 Sale
+                          </Badge>
+                        )}
+                      </div>
                       
-                      <div className="flex items-center mb-2">
-                        <div className="flex items-center">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                          ))}
+                      <CardContent className="p-4">
+                        <Link to={`/product/${productHandle}`}>
+                          <h3 className="font-semibold text-foreground mb-2 hover:text-primary transition-colors line-clamp-2">
+                            {product.title}
+                          </h3>
+                        </Link>
+                        
+                        <div className="flex items-center mb-2">
+                          <div className="flex items-center">
+                            {[...Array(5)].map((_, i) => (
+                              <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                            ))}
+                          </div>
+                          <span className="text-sm text-muted-foreground ml-2">(0)</span>
                         </div>
-                        <span className="text-sm text-muted-foreground ml-2">(0)</span>
-                      </div>
-                      
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center space-x-2">
-                          <span className="text-lg font-bold text-primary">{pricing.current}</span>
-                          {pricing.original && (
-                            <span className="text-sm text-muted-foreground line-through">
-                              {pricing.original}
-                            </span>
-                          )}
+                        
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center space-x-2">
+                            <span className="text-lg font-bold text-primary">{pricing.current}</span>
+                            {pricing.original && (
+                              <span className="text-sm text-muted-foreground line-through">
+                                {pricing.original}
+                              </span>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                      
-                      <div className="flex space-x-2">
-                        <Button
-                          onClick={() => handleAddToCart(product)}
-                          className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
-                          size="sm"
-                        >
-                          <ShoppingCart className="w-4 h-4 mr-1" />
-                          Add to Cart
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
+                        
+                        <div className="flex space-x-2">
+                          <Button
+                            onClick={() => handleAddToCart(product)}
+                            className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+                            size="sm"
+                          >
+                            <ShoppingCart className="w-4 h-4 mr-1" />
+                            Add to Cart
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </React.Fragment>
                 );
-                
-                return acc;
-              }, [] as React.ReactNode[])}
+              })}
             </div>
             
             {/* Load More Button */}
