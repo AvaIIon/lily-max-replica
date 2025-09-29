@@ -6,14 +6,14 @@
 
 @layer base {
   :root {
-    --background: 320 30% 95%;
-    --foreground: 220 9% 46%;
+    --background: 320 30% 98%;
+    --foreground: 220 30% 25%;
 
-    --card: 320 20% 97%;
-    --card-foreground: 220 9% 46%;
+    --card: 320 15% 98%;
+    --card-foreground: 220 30% 25%;
 
-    --popover: 320 20% 97%;
-    --popover-foreground: 220 9% 46%;
+    --popover: 320 15% 98%;
+    --popover-foreground: 220 30% 25%;
 
     /* Max & Lily Brand Colors - Super Vibrant & Child-like */
     --max-blue: 200 100% 65%;        /* Bright electric blue for "Max" */
@@ -137,7 +137,38 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    background: linear-gradient(135deg, 
+      hsl(320 30% 98%) 0%, 
+      hsl(280 20% 97%) 25%, 
+      hsl(200 25% 98%) 50%, 
+      hsl(150 20% 97%) 75%, 
+      hsl(35 25% 98%) 100%);
+    min-height: 100vh;
+    @apply text-foreground;
+  }
+
+  /* Fun colorful backgrounds for sections */
+  .bg-rainbow-soft {
+    background: linear-gradient(135deg, 
+      hsl(320 25% 96%) 0%, 
+      hsl(280 20% 95%) 25%, 
+      hsl(200 20% 96%) 50%, 
+      hsl(150 15% 95%) 75%, 
+      hsl(35 20% 96%) 100%);
+  }
+
+  .bg-pastel-dream {
+    background: linear-gradient(135deg, 
+      hsl(280 40% 95%) 0%, 
+      hsl(320 35% 96%) 50%, 
+      hsl(340 30% 97%) 100%);
+  }
+
+  .bg-sky-candy {
+    background: linear-gradient(135deg, 
+      hsl(200 40% 95%) 0%, 
+      hsl(220 35% 96%) 50%, 
+      hsl(190 30% 97%) 100%);
   }
   /* Utilities */
   .line-clamp-2 {
