@@ -145,47 +145,47 @@
 
   /* Colorful utility classes */
   .gradient-primary {
-    background: var(--gradient-primary);
+    background: linear-gradient(135deg, hsl(200 85% 55%), hsl(320 85% 55%));
   }
 
   .gradient-warm {
-    background: var(--gradient-warm);
+    background: linear-gradient(135deg, hsl(35 85% 55%), hsl(330 75% 50%));
   }
 
   .gradient-cool {
-    background: var(--gradient-cool);
+    background: linear-gradient(135deg, hsl(200 85% 55%), hsl(270 65% 55%));
   }
 
   .gradient-nature {
-    background: var(--gradient-nature);
+    background: linear-gradient(135deg, hsl(120 60% 40%), hsl(35 65% 50%));
   }
 
   .gradient-sunset {
-    background: var(--gradient-sunset);
+    background: linear-gradient(135deg, hsl(25 85% 65%), hsl(15 80% 60%));
   }
 
   .gradient-ocean {
-    background: var(--gradient-ocean);
+    background: linear-gradient(135deg, hsl(180 70% 50%), hsl(200 85% 55%));
   }
 
   .gradient-rainbow {
-    background: var(--gradient-rainbow);
+    background: linear-gradient(90deg, hsl(15 80% 60%), hsl(35 85% 55%), hsl(45 95% 60%), hsl(150 70% 50%), hsl(200 85% 55%), hsl(270 65% 55%), hsl(320 85% 55%));
   }
 
   .gradient-pastel {
-    background: var(--gradient-pastel);
+    background: linear-gradient(135deg, hsl(280 60% 70%), hsl(320 85% 55%));
   }
 
   .shadow-colorful {
-    box-shadow: var(--shadow-colorful);
+    box-shadow: 0 10px 30px -5px hsl(320 85% 55% / 0.3);
   }
 
   .shadow-blue {
-    box-shadow: var(--shadow-blue);
+    box-shadow: 0 10px 30px -5px hsl(200 85% 55% / 0.3);
   }
 
   .shadow-orange {
-    box-shadow: var(--shadow-orange);
+    box-shadow: 0 10px 30px -5px hsl(35 85% 55% / 0.3);
   }
 
   /* Animated elements */
@@ -198,11 +198,11 @@
   }
 
   @keyframes pulse-colors {
-    0% { background: hsl(var(--lily-pink)); }
-    25% { background: hsl(var(--max-blue)); }
-    50% { background: hsl(var(--fun-orange)); }
-    75% { background: hsl(var(--mint-green)); }
-    100% { background: hsl(var(--playful-purple)); }
+    0% { background: hsl(320 85% 55%); }
+    25% { background: hsl(200 85% 55%); }
+    50% { background: hsl(35 85% 55%); }
+    75% { background: hsl(150 70% 50%); }
+    100% { background: hsl(270 65% 55%); }
   }
 
   /* Hover effects */
@@ -211,7 +211,7 @@
   }
 
   .hover-gradient:hover {
-    background: var(--gradient-rainbow);
+    background: linear-gradient(90deg, hsl(15 80% 60%), hsl(35 85% 55%), hsl(45 95% 60%), hsl(150 70% 50%), hsl(200 85% 55%), hsl(270 65% 55%), hsl(320 85% 55%));
     transform: translateY(-2px);
   }
 }
