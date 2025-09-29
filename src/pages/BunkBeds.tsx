@@ -60,6 +60,24 @@ export const BunkBeds = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-blue-500 via-cyan-500 to-teal-600 py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-3xl mx-auto">
+            <h1 className="text-5xl font-bold text-white mb-6 drop-shadow-lg">
+              🏢 Bunk Beds Collection
+            </h1>
+            <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+              Space-saving bunk beds perfect for siblings, sleepovers, and maximizing bedroom functionality. Double the fun, half the space!
+            </p>
+          </div>
+        </div>
+        <div className="absolute top-10 left-10 w-20 h-20 bg-yellow-300/30 rounded-full blur-xl"></div>
+        <div className="absolute bottom-10 right-10 w-32 h-32 bg-blue-300/30 rounded-full blur-xl"></div>
+      </section>
+
 
       {/* Breadcrumb */}
       <nav className="container mx-auto px-4 py-4">
@@ -72,11 +90,14 @@ export const BunkBeds = () => {
 
       {/* Products Grid */}
       <section className="container mx-auto px-4 pb-16">
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-12">
           <div>
-            <h1 className="text-3xl font-bold text-foreground mb-2">
-              Bunk Beds <span className="text-muted-foreground font-normal">({products.length} products)</span>
-            </h1>
+            <h2 className="text-3xl font-bold text-foreground mb-2">
+              Bunk Beds Collection
+            </h2>
+            <p className="text-muted-foreground text-lg">
+              Safe and stylish bunk beds for shared spaces • {products.length} total products
+            </p>
           </div>
         </div>
 
@@ -100,18 +121,19 @@ export const BunkBeds = () => {
                         <MiniPromoBanner type={promoType} currentCategory="Bunk Beds" />
                       </div>
                     )}
-                <Card className="group hover:shadow-lg transition-all duration-300 bg-white">
+                <Card className="group hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 border-2 hover:border-blue-300 bg-gradient-to-br from-white to-blue-50">
                   <div className="relative overflow-hidden rounded-t-lg">
                     <img
                       src={product.imageUrls[0] || "https://via.placeholder.com/300x200"}
                       alt={product.title}
-                      className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                       onError={(e) => {
                         e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
                       }}
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     {product.salePrice && product.price && (
-                      <Badge className="absolute top-3 left-3 bg-green-500 text-white shadow-md">
+                      <Badge className="absolute top-3 left-3 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg animate-pulse">
                         🔥 Sale
                       </Badge>
                     )}
@@ -119,12 +141,12 @@ export const BunkBeds = () => {
                   
                   <CardContent className="p-4">
                     <Link to={`/product/${productHandle}`}>
-                      <h3 className="font-semibold text-foreground mb-2 hover:text-primary transition-colors line-clamp-2 min-h-[48px]">
+                      <h3 className="font-semibold text-foreground mb-2 hover:text-primary transition-colors line-clamp-2">
                         {product.title}
                       </h3>
                     </Link>
                     
-                    <div className="flex items-center mb-3">
+                    <div className="flex items-center mb-2">
                       <div className="flex items-center">
                         {[...Array(5)].map((_, i) => (
                           <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -133,22 +155,27 @@ export const BunkBeds = () => {
                       <span className="text-sm text-muted-foreground ml-2">(0)</span>
                     </div>
                     
-                    <div className="mb-4">
-                      <span className="text-2xl font-bold text-primary">{pricing.current}</span>
-                      {pricing.original && (
-                        <span className="text-sm text-muted-foreground line-through ml-2">
-                          {pricing.original}
-                        </span>
-                      )}
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-lg font-bold text-primary">{pricing.current}</span>
+                        {pricing.original && (
+                          <span className="text-sm text-muted-foreground line-through">
+                            {pricing.original}
+                          </span>
+                        )}
+                      </div>
                     </div>
                     
-                    <Button
-                      onClick={() => handleAddToCart(product)}
-                      className="w-full bg-[#6366f1] hover:bg-[#5558e3] text-white"
-                    >
-                      <ShoppingCart className="w-4 h-4 mr-2" />
-                      Add to Cart
-                    </Button>
+                    <div className="flex space-x-2">
+                      <Button
+                        onClick={() => handleAddToCart(product)}
+                        className="flex-1 bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+                        size="sm"
+                      >
+                        <ShoppingCart className="w-4 h-4 mr-1" />
+                        Add to Cart
+                      </Button>
+                    </div>
                     </CardContent>
                     </Card>
                   </React.Fragment>
@@ -162,7 +189,7 @@ export const BunkBeds = () => {
                 <Button
                   onClick={loadMoreProducts}
                   size="lg"
-                  className="bg-[#6366f1] hover:bg-[#5558e3] text-white px-8 py-3 rounded-full"
+                  className="bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
                 >
                   <ChevronDown className="w-5 h-5 mr-2" />
                   Load More Products ({products.length - displayedProducts.length} remaining)
