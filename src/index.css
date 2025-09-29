@@ -228,16 +228,14 @@
     animation: bounce 3s infinite;
   }
 
-  .animate-pulse-colors {
-    animation: pulse-colors 2s infinite alternate;
+  /* Smooth hover effects instead of flashing */
+  .animate-gentle-glow {
+    transition: all 0.3s ease;
   }
 
-  @keyframes pulse-colors {
-    0% { background: hsl(320 100% 70%); }
-    25% { background: hsl(200 100% 65%); }
-    50% { background: hsl(35 100% 65%); }
-    75% { background: hsl(150 85% 60%); }
-    100% { background: hsl(270 85% 65%); }
+  .animate-gentle-glow:hover {
+    box-shadow: 0 5px 15px -3px hsl(320 100% 70% / 0.2);
+    transform: translateY(-1px);
   }
 
   /* Hover effects */
