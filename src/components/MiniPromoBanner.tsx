@@ -11,7 +11,7 @@ interface MiniPromoBannerProps {
 export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps) => {
   if (type === 'sale') {
     return (
-      <Card className="group h-full hover:shadow-2xl hover:shadow-green-500/30 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-green-500 to-emerald-600 overflow-hidden">
+      <Card className="group h-full hover:shadow-2xl hover:shadow-orange-500/30 transition-all duration-300 border-2 hover:border-orange-300 bg-gradient-to-br from-orange-500 to-red-500 overflow-hidden">
         <div className="relative overflow-hidden rounded-t-lg h-48">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
@@ -91,7 +91,7 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
 
   if (type === 'guarantee') {
     return (
-      <Card className="group h-full hover:shadow-2xl hover:shadow-green-500/30 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-green-500 to-emerald-600 overflow-hidden">
+      <Card className="group h-full hover:shadow-2xl hover:shadow-purple-500/30 transition-all duration-300 border-2 hover:border-purple-300 bg-gradient-to-br from-purple-500 to-pink-500 overflow-hidden">
         <div className="relative overflow-hidden rounded-t-lg h-48">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
@@ -140,7 +140,7 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
   const randomCategory = otherCategories[Math.floor(Math.random() * otherCategories.length)];
 
   return (
-    <Card className="group h-full hover:shadow-2xl hover:shadow-green-500/30 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-green-500 to-emerald-600 overflow-hidden">
+    <Card className="group h-full hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-300 border-2 hover:border-blue-300 bg-gradient-to-br from-blue-500 to-cyan-600 overflow-hidden">
       <div className="relative overflow-hidden rounded-t-lg h-48">
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
