@@ -6,13 +6,13 @@
 
 @layer base {
   :root {
-    --background: 210 50% 95%;
+    --background: 320 30% 95%;
     --foreground: 220 9% 46%;
 
-    --card: 210 30% 97%;
+    --card: 320 20% 97%;
     --card-foreground: 220 9% 46%;
 
-    --popover: 210 30% 97%;
+    --popover: 320 20% 97%;
     --popover-foreground: 220 9% 46%;
 
     /* Max & Lily Brand Colors */
