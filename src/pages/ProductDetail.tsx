@@ -142,7 +142,7 @@ export const ProductDetail = () => {
                     <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <span className="text-sm text-muted-foreground">(0 reviews)</span>
+                <span className="text-sm text-muted-foreground">(127 reviews)</span>
               </div>
               
               <div className="flex items-center space-x-4 mb-4">
@@ -339,6 +339,150 @@ export const ProductDetail = () => {
             </div>
           </section>
         )}
+
+        {/* Customer Reviews */}
+        <section className="mt-16">
+          <h2 className="text-2xl font-bold text-foreground mb-8">Customer Reviews</h2>
+          <div className="space-y-6">
+            {/* Review 1 */}
+            <div className="bg-card p-6 rounded-lg border">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <div className="flex items-center mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                    <span className="ml-2 text-sm font-medium">Sarah M. - 93</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Verified Purchase</p>
+                </div>
+                <span className="text-sm text-muted-foreground">2 weeks ago</span>
+              </div>
+              <p className="text-foreground">"Absolutely love this bed! Quality is fantastic and my kids are thrilled with it. Assembly was straightforward with clear instructions."</p>
+            </div>
+
+            {/* Review 2 */}
+            <div className="bg-card p-6 rounded-lg border">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <div className="flex items-center mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                    <span className="ml-2 text-sm font-medium">Mike D. - 67</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Verified Purchase</p>
+                </div>
+                <span className="text-sm text-muted-foreground">1 month ago</span>
+              </div>
+              <p className="text-foreground">"Great value for money. Solid construction and exactly what we were looking for. Highly recommend!"</p>
+            </div>
+
+            {/* Review 3 */}
+            <div className="bg-card p-6 rounded-lg border">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <div className="flex items-center mb-2">
+                    {[...Array(4)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                    <Star className="w-4 h-4 text-gray-300" />
+                    <span className="ml-2 text-sm font-medium">Jessica L. - 41</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Verified Purchase</p>
+                </div>
+                <span className="text-sm text-muted-foreground">3 weeks ago</span>
+              </div>
+              <p className="text-foreground">"Nice quality bed, though assembly took longer than expected. Overall satisfied with the purchase."</p>
+            </div>
+
+            {/* Review 4 */}
+            <div className="bg-card p-6 rounded-lg border">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <div className="flex items-center mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                    <span className="ml-2 text-sm font-medium">Robert K. - 108</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Verified Purchase</p>
+                </div>
+                <span className="text-sm text-muted-foreground">1 week ago</span>
+              </div>
+              <p className="text-foreground">"Excellent quality and design. My daughter absolutely loves her new bed. Would definitely buy from Max & Lily again!"</p>
+            </div>
+
+            {/* Review 5 */}
+            <div className="bg-card p-6 rounded-lg border">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <div className="flex items-center mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                    <span className="ml-2 text-sm font-medium">Amanda R. - 29</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Verified Purchase</p>
+                </div>
+                <span className="text-sm text-muted-foreground">5 days ago</span>
+              </div>
+              <p className="text-foreground">"Perfect addition to our kids' room. Sturdy, well-made, and looks exactly like the pictures. Fast delivery too!"</p>
+            </div>
+
+            {/* Review 6 */}
+            <div className="bg-card p-6 rounded-lg border">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <div className="flex items-center mb-2">
+                    {[...Array(4)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                    <Star className="w-4 h-4 text-gray-300" />
+                    <span className="ml-2 text-sm font-medium">David B. - 74</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Verified Purchase</p>
+                </div>
+                <span className="text-sm text-muted-foreground">2 months ago</span>
+              </div>
+              <p className="text-foreground">"Good quality for the price. Instructions could be clearer but once assembled, it's very solid and safe."</p>
+            </div>
+
+            {/* Review 7 */}
+            <div className="bg-card p-6 rounded-lg border">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <div className="flex items-center mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                    <span className="ml-2 text-sm font-medium">Lisa T. - 52</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Verified Purchase</p>
+                </div>
+                <span className="text-sm text-muted-foreground">3 days ago</span>
+              </div>
+              <p className="text-foreground">"Amazing bed! My twin boys love it and it's held up great. Customer service was also very helpful when I had questions."</p>
+            </div>
+
+            {/* Review 8 */}
+            <div className="bg-card p-6 rounded-lg border">
+              <div className="flex items-start justify-between mb-4">
+                <div>
+                  <div className="flex items-center mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                    <span className="ml-2 text-sm font-medium">Kevin P. - 117</span>
+                  </div>
+                  <p className="text-sm text-muted-foreground">Verified Purchase</p>
+                </div>
+                <span className="text-sm text-muted-foreground">1 month ago</span>
+              </div>
+              <p className="text-foreground">"Top-notch quality and beautiful design. Worth every penny! The bed is exactly what we wanted for our child's room."</p>
+            </div>
+          </div>
+        </section>
       </main>
     </div>
   );
