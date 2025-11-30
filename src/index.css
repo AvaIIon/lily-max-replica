@@ -6,17 +6,17 @@
 
 @layer base {
   :root {
-    --background: 200 100% 85%;  /* Baby Blue */
+    --background: 200 30% 75%;  /* Baby Blue #AEC6CF */
     --foreground: 200 50% 20%;
 
-    --card: 200 100% 85%;  /* Baby Blue */
+    --card: 200 30% 75%;  /* Baby Blue #AEC6CF */
     --card-foreground: 200 50% 20%;
 
-    --popover: 200 100% 85%;  /* Baby Blue */
+    --popover: 200 30% 75%;  /* Baby Blue #AEC6CF */
     --popover-foreground: 200 50% 20%;
 
     /* Bedsmart Brand Colors - Baby Blue, Orange, Teal */
-    --baby-blue: 200 100% 85%;       /* Baby blue background */
+    --baby-blue: 200 30% 75%;        /* Baby blue background #AEC6CF */
     --teal: 180 80% 45%;             /* Teal accent */
     --orange: 25 100% 60%;           /* Orange accent */
     
@@ -50,7 +50,7 @@
 
     --radius: 0.5rem;
 
-    --sidebar-background: 200 100% 85%;
+    --sidebar-background: 200 30% 75%;
 
     --sidebar-foreground: 200 50% 20%;
 
@@ -118,7 +118,7 @@
   }
 
   body {
-    background: hsl(200 100% 85%);
+    background: hsl(200 30% 75%);
     min-height: 100vh;
     font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', sans-serif;
     @apply text-foreground;

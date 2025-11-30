@@ -30,7 +30,7 @@ export const Header = () => {
         <nav className="flex items-center justify-between py-4">
           <div className="flex items-center">
             <Link to="/">
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-orange to-teal bg-clip-text text-transparent">
                 Bedsmart
               </h1>
             </Link>
