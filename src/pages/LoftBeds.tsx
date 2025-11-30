@@ -3,20 +3,33 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Header } from '@/components/Header';
 import { MiniPromoBanner } from '@/components/MiniPromoBanner';
-import loftBedsImage from '@/assets/loft-beds.jpg';
 import { loadBedsmartProducts, getFormattedPrice, generateHandle, getProductsByCategory } from '@/data/productData';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
-import { ShoppingCart, Star, ChevronDown } from 'lucide-react';
+import { 
+  ShoppingCart, 
+  Grid, 
+  List, 
+  Filter, 
+  SortAsc, 
+  CheckCircle,
+  Truck,
+  Shield,
+  Award,
+  Zap
+} from 'lucide-react';
 
 export const LoftBeds = () => {
   const [products, setProducts] = useState<any[]>([]);
-  const [displayedProducts, setDisplayedProducts] = useState<any[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [productsPerPage] = useState(8);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [sortBy, setSortBy] = useState('featured');
+  const [priceRange, setPriceRange] = useState('all');
+  const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const { addToCart } = useCart();
   const { toast } = useToast();
 
@@ -25,9 +38,8 @@ export const LoftBeds = () => {
       try {
         const allProducts = await loadBedsmartProducts();
         const loftBedProducts = getProductsByCategory(allProducts, 'Loft Beds');
-        console.log(`Found ${loftBedProducts.length} loft bed products out of ${allProducts.length} total products`);
         setProducts(loftBedProducts);
-        setDisplayedProducts(loftBedProducts.slice(0, productsPerPage));
+        setFilteredProducts(loftBedProducts);
       } catch (error) {
         console.error('Error loading products:', error);
       } finally {
@@ -38,6 +50,52 @@ export const LoftBeds = () => {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    let filtered = [...products];
+
+    if (priceRange !== 'all') {
+      filtered = filtered.filter(product => {
+        const price = parseFloat(product.price?.replace(/[$,]/g, '') || '0');
+        switch (priceRange) {
+          case 'under-200':
+            return price < 200;
+          case '200-500':
+            return price >= 200 && price <= 500;
+          case '500-1000':
+            return price >= 500 && price <= 1000;
+          case 'over-1000':
+            return price > 1000;
+          default:
+            return true;
+        }
+      });
+    }
+
+    switch (sortBy) {
+      case 'price-low':
+        filtered.sort((a, b) => {
+          const priceA = parseFloat(a.price?.replace(/[$,]/g, '') || '0');
+          const priceB = parseFloat(b.price?.replace(/[$,]/g, '') || '0');
+          return priceA - priceB;
+        });
+        break;
+      case 'price-high':
+        filtered.sort((a, b) => {
+          const priceA = parseFloat(a.price?.replace(/[$,]/g, '') || '0');
+          const priceB = parseFloat(b.price?.replace(/[$,]/g, '') || '0');
+          return priceB - priceA;
+        });
+        break;
+      case 'name':
+        filtered.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      default:
+        break;
+    }
+
+    setFilteredProducts(filtered);
+  }, [products, sortBy, priceRange]);
+
   const handleAddToCart = (product: any) => {
     addToCart(product, 1);
     toast({
@@ -46,98 +104,182 @@ export const LoftBeds = () => {
     });
   };
 
-  const loadMoreProducts = () => {
-    const nextPage = currentPage + 1;
-    const startIndex = 0;
-    const endIndex = nextPage * productsPerPage;
-    setDisplayedProducts(products.slice(startIndex, endIndex));
-    setCurrentPage(nextPage);
-  };
-
-  const hasMoreProducts = displayedProducts.length < products.length;
+  const features = [
+    {
+      icon: CheckCircle,
+      title: "Quality Tested",
+      description: "All our loft beds undergo rigorous quality testing"
+    },
+    {
+      icon: Truck,
+      title: "Free Delivery",
+      description: "Free shipping on orders over $299"
+    },
+    {
+      icon: Shield,
+      title: "5-Year Warranty",
+      description: "Comprehensive warranty coverage"
+    },
+    {
+      icon: Award,
+      title: "Top Rated",
+      description: "Highly rated by customers nationwide"
+    }
+  ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-sky-candy">
       <Header />
       
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-orange to-teal py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="bg-white/15 backdrop-blur-sm rounded-2xl p-8 max-w-3xl mx-auto">
-            <h1 className="text-5xl font-bold text-white mb-6 drop-shadow-lg">
-              🏗️ Loft Beds Collection
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-orange to-teal"></div>
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-32 h-32 bg-orange/30 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-20 w-40 h-40 bg-teal/30 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-orange/20 rounded-full blur-2xl animate-pulse"></div>
+        </div>
+        
+        <div className="relative container mx-auto px-4 py-24">
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="inline-flex items-center bg-white/20 backdrop-blur-sm rounded-full px-6 py-2 mb-6 text-white">
+              <Zap className="w-4 h-4 mr-2" />
+              <span className="text-sm font-medium">Premium Loft Beds Collection</span>
+            </div>
+            
+            <h1 className="text-6xl md:text-7xl font-bold text-white mb-8 tracking-tight">
+              🏗️ Loft Beds <span className="bg-gradient-to-r from-white to-baby-blue bg-clip-text text-transparent">Collection</span>
             </h1>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto leading-relaxed">
+            
+            <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-12">
               Maximize your space with our elevated loft beds. Perfect for creating study areas, play spaces, or extra storage underneath. Reach for the stars!
             </p>
+            
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Button size="lg" className="bg-gradient-to-r from-orange to-teal text-white hover:opacity-90 font-semibold px-8 py-4 text-lg">
+                Shop Collection
+              </Button>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 font-semibold px-8 py-4 text-lg">
+                View Catalog
+              </Button>
+            </div>
           </div>
         </div>
-        <div className="absolute top-10 right-10 w-20 h-20 bg-orange/25 rounded-full blur-xl"></div>
-        <div className="absolute bottom-10 left-10 w-32 h-32 bg-teal/25 rounded-full blur-xl"></div>
       </section>
 
-      {/* Breadcrumb */}
-      <nav className="container mx-auto px-4 py-4">
-        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-          <Link to="/" className="hover:text-foreground">Home</Link>
-          <span>/</span>
-          <span className="text-foreground">Loft Beds</span>
-        </div>
-      </nav>
-
-      {/* Products Grid */}
-      <section className="container mx-auto px-4 pb-16">
-        <div className="flex justify-between items-center mb-12">
-          <div>
-            <h2 className="text-3xl font-bold text-foreground mb-2">
-              Loft Beds Collection
-            </h2>
-            <p className="text-muted-foreground text-lg">
-              Space-saving solutions for modern living • {products.length} total products
-            </p>
+      {/* Features Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <div key={index} className="text-center group">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-orange to-teal rounded-full mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <feature.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
+              </div>
+            ))}
           </div>
         </div>
+      </section>
 
-        {loading ? (
-          <div className="text-center py-16">
-            <p className="text-muted-foreground">Loading products...</p>
-          </div>
-        ) : products.length > 0 ? (
-          <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-              {/* First promotional banner - NEW COLLECTION */}
-              <div className="col-span-1">
-                <Card className="bg-gradient-to-br from-green-500 to-emerald-600 text-white p-8 h-full flex flex-col justify-between relative overflow-hidden">
-                  <div className="absolute top-4 left-4">
-                    <Badge className="bg-white/20 text-white border-white/30">
-                      NEW COLLECTION
-                    </Badge>
-                  </div>
-                  <div className="mt-8">
-                    <div className="text-6xl mb-4">🏗️</div>
-                    <h3 className="text-2xl font-bold mb-2">EXPLORE MORE</h3>
-                    <h2 className="text-3xl font-bold mb-4">Loft Beds</h2>
-                    <p className="text-white/90 mb-6">
-                      Discover our amazing loft beds collection with unique designs!
-                    </p>
-                    <div className="mt-auto">
-                      <p className="text-lg font-semibold mb-4">VIEW ALL</p>
-                      <Button className="bg-white/20 hover:bg-white/30 text-white border border-white/30 w-full">
-                        ⚡ Shop Collection →
-                      </Button>
-                    </div>
-                  </div>
-                </Card>
+      {/* Breadcrumb & Filters */}
+      <section className="bg-white border-b">
+        <div className="container mx-auto px-4 py-6">
+          <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-6">
+            <Link to="/" className="hover:text-foreground">Home</Link>
+            <span>/</span>
+            <span className="text-foreground font-medium">Loft Beds</span>
+          </nav>
+
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center space-x-4">
+              <h2 className="text-3xl font-bold text-gray-900">
+                Loft Beds
+                <span className="text-lg font-normal text-gray-500 ml-2">
+                  ({filteredProducts.length} products)
+                </span>
+              </h2>
+            </div>
+            
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center bg-gray-100 rounded-lg p-1">
+                <Button
+                  size="sm"
+                  variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                  onClick={() => setViewMode('grid')}
+                  className="px-3"
+                >
+                  <Grid className="w-4 h-4" />
+                </Button>
+                <Button
+                  size="sm"
+                  variant={viewMode === 'list' ? 'default' : 'ghost'}
+                  onClick={() => setViewMode('list')}
+                  className="px-3"
+                >
+                  <List className="w-4 h-4" />
+                </Button>
               </div>
 
-              {/* First 3 products */}
-              {displayedProducts.slice(0, 3).map((product) => {
-                const pricing = getFormattedPrice(product);
-                const productHandle = product.handle || generateHandle(product.title);
-                
-                return (
-                  <Card key={productHandle} className="group hover:shadow-lg transition-all duration-300 bg-white border border-gray-200">
+              <Select value={priceRange} onValueChange={setPriceRange}>
+                <SelectTrigger className="w-48">
+                  <Filter className="w-4 h-4 mr-2" />
+                  <SelectValue placeholder="Filter by price" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Prices</SelectItem>
+                  <SelectItem value="under-200">Under $200</SelectItem>
+                  <SelectItem value="200-500">$200 - $500</SelectItem>
+                  <SelectItem value="500-1000">$500 - $1,000</SelectItem>
+                  <SelectItem value="over-1000">Over $1,000</SelectItem>
+                </SelectContent>
+              </Select>
+
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger className="w-48">
+                  <SortAsc className="w-4 h-4 mr-2" />
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="featured">Featured</SelectItem>
+                  <SelectItem value="price-low">Price: Low to High</SelectItem>
+                  <SelectItem value="price-high">Price: High to Low</SelectItem>
+                  <SelectItem value="name">Name A-Z</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Products Section */}
+      <section className="container mx-auto px-4 py-12">
+        {loading ? (
+          <div className="text-center py-24">
+            <div className="w-16 h-16 bg-gradient-to-r from-orange to-teal rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-xl text-gray-600">Loading amazing beds for you...</p>
+          </div>
+        ) : filteredProducts.length > 0 ? (
+          <div className={viewMode === 'grid' 
+            ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" 
+            : "space-y-6"
+          }>
+            {filteredProducts.map((product, index) => {
+              const shouldShowPromo = viewMode === 'grid' && (index + 1) % 8 === 0;
+              const promoType = ['sale', 'shipping', 'guarantee', 'category'][index % 4] as 'sale' | 'shipping' | 'guarantee' | 'category';
+              const productHandle = product.handle || generateHandle(product.title);
+              
+              return (
+                <React.Fragment key={productHandle}>
+                  {shouldShowPromo && (
+                    <div className="col-span-1">
+                      <MiniPromoBanner type={promoType} currentCategory="Loft Beds" />
+                    </div>
+                  )}
+                  
+                  <Card className="group hover:shadow-lg transition-all duration-300 bg-white border border-gray-200">
                     <div className="relative overflow-hidden bg-gray-50 flex items-center justify-center" style={{ height: '280px' }}>
                       {product.salePrice && product.price && (
                         <Badge className="absolute top-4 right-4 bg-black text-white text-xs px-2 py-1">
@@ -196,310 +338,24 @@ export const LoftBeds = () => {
                       </Button>
                     </CardContent>
                   </Card>
-                );
-              })}
-
-              {/* Next 4 products */}
-              {displayedProducts.slice(3, 7).map((product) => {
-                const pricing = getFormattedPrice(product);
-                const productHandle = product.handle || generateHandle(product.title);
-                
-                return (
-                  <Card key={productHandle} className="group hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50">
-                    <div className="relative overflow-hidden rounded-t-lg">
-                      <img
-                        src={product.imageUrls[0] || loftBedsImage}
-                        alt={product.title}
-                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                        onError={(e) => {
-                          e.currentTarget.src = loftBedsImage;
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      {product.salePrice && product.price && (
-                        <Badge className="absolute top-3 left-3 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg animate-pulse">
-                          🔥 Sale
-                        </Badge>
-                      )}
-                    </div>
-                    
-                    <CardContent className="p-4">
-                      <Link to={`/product/${productHandle}`}>
-                        <h3 className="font-semibold text-foreground mb-2 hover:text-primary transition-colors line-clamp-2">
-                          {product.title}
-                        </h3>
-                      </Link>
-                      
-                      <div className="flex items-center mb-2">
-                        <div className="flex items-center">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                          ))}
-                        </div>
-                        <span className="text-sm text-muted-foreground ml-2">(0)</span>
-                      </div>
-                      
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center space-x-2">
-                          <span className="text-lg font-bold text-primary">{pricing.current}</span>
-                          {pricing.original && (
-                            <span className="text-sm text-muted-foreground line-through">
-                              {pricing.original}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      
-                      <div className="flex space-x-2">
-                        <Button
-                          onClick={() => handleAddToCart(product)}
-                          className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
-                          size="sm"
-                        >
-                          <ShoppingCart className="w-4 h-4 mr-1" />
-                          Add to Cart
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-
-              {/* FREE SHIPPING Banner */}
-              <div className="col-span-1">
-                <MiniPromoBanner type="shipping" currentCategory="Loft Beds" />
-              </div>
-
-              {/* Next 3 products */}
-              {displayedProducts.slice(7, 10).map((product) => {
-                const pricing = getFormattedPrice(product);
-                const productHandle = product.handle || generateHandle(product.title);
-                
-                return (
-                  <Card key={productHandle} className="group hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50">
-                    <div className="relative overflow-hidden rounded-t-lg">
-                      <img
-                        src={product.imageUrls[0] || loftBedsImage}
-                        alt={product.title}
-                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                        onError={(e) => {
-                          e.currentTarget.src = loftBedsImage;
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      {product.salePrice && product.price && (
-                        <Badge className="absolute top-3 left-3 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg animate-pulse">
-                          🔥 Sale
-                        </Badge>
-                      )}
-                    </div>
-                    
-                    <CardContent className="p-4">
-                      <Link to={`/product/${productHandle}`}>
-                        <h3 className="font-semibold text-foreground mb-2 hover:text-primary transition-colors line-clamp-2">
-                          {product.title}
-                        </h3>
-                      </Link>
-                      
-                      <div className="flex items-center mb-2">
-                        <div className="flex items-center">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                          ))}
-                        </div>
-                        <span className="text-sm text-muted-foreground ml-2">(0)</span>
-                      </div>
-                      
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center space-x-2">
-                          <span className="text-lg font-bold text-primary">{pricing.current}</span>
-                          {pricing.original && (
-                            <span className="text-sm text-muted-foreground line-through">
-                              {pricing.original}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      
-                      <div className="flex space-x-2">
-                        <Button
-                          onClick={() => handleAddToCart(product)}
-                          className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
-                          size="sm"
-                        >
-                          <ShoppingCart className="w-4 h-4 mr-1" />
-                          Add to Cart
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-
-              {/* Category Banner */}
-              <MiniPromoBanner type="category" currentCategory="Loft Beds" />
-
-              {/* Next 3 products */}
-              {displayedProducts.slice(10, 13).map((product) => {
-                const pricing = getFormattedPrice(product);
-                const productHandle = product.handle || generateHandle(product.title);
-                
-                return (
-                  <Card key={productHandle} className="group hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50">
-                    <div className="relative overflow-hidden rounded-t-lg">
-                      <img
-                        src={product.imageUrls[0] || loftBedsImage}
-                        alt={product.title}
-                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                        onError={(e) => {
-                          e.currentTarget.src = loftBedsImage;
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                      {product.salePrice && product.price && (
-                        <Badge className="absolute top-3 left-3 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg animate-pulse">
-                          🔥 Sale
-                        </Badge>
-                      )}
-                    </div>
-                    
-                    <CardContent className="p-4">
-                      <Link to={`/product/${productHandle}`}>
-                        <h3 className="font-semibold text-foreground mb-2 hover:text-primary transition-colors line-clamp-2">
-                          {product.title}
-                        </h3>
-                      </Link>
-                      
-                      <div className="flex items-center mb-2">
-                        <div className="flex items-center">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                          ))}
-                        </div>
-                        <span className="text-sm text-muted-foreground ml-2">(0)</span>
-                      </div>
-                      
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center space-x-2">
-                          <span className="text-lg font-bold text-primary">{pricing.current}</span>
-                          {pricing.original && (
-                            <span className="text-sm text-muted-foreground line-through">
-                              {pricing.original}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      
-                      <div className="flex space-x-2">
-                        <Button
-                          onClick={() => handleAddToCart(product)}
-                          className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
-                          size="sm"
-                        >
-                          <ShoppingCart className="w-4 h-4 mr-1" />
-                          Add to Cart
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-
-              {/* Remaining products with occasional banners */}
-              {displayedProducts.slice(13).map((product, index) => {
-                const adjustedIndex = index + 13;
-                const shouldShowBanner = (adjustedIndex + 1) % 8 === 0;
-                const bannerType = ['sale', 'guarantee'][Math.floor(adjustedIndex / 8) % 2] as 'sale' | 'guarantee';
-                const pricing = getFormattedPrice(product);
-                const productHandle = product.handle || generateHandle(product.title);
-                
-                return (
-                  <React.Fragment key={productHandle}>
-                    {shouldShowBanner && (
-                      <MiniPromoBanner type={bannerType} currentCategory="Loft Beds" />
-                    )}
-                    <Card className="group hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50">
-                      <div className="relative overflow-hidden rounded-t-lg">
-                        <img
-                          src={product.imageUrls[0] || "https://via.placeholder.com/300x200"}
-                          alt={product.title}
-                          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                          onError={(e) => {
-                            e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
-                          }}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        {product.salePrice && product.price && (
-                          <Badge className="absolute top-3 left-3 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg animate-pulse">
-                            🔥 Sale
-                          </Badge>
-                        )}
-                      </div>
-                      
-                      <CardContent className="p-4">
-                        <Link to={`/product/${productHandle}`}>
-                          <h3 className="font-semibold text-foreground mb-2 hover:text-primary transition-colors line-clamp-2">
-                            {product.title}
-                          </h3>
-                        </Link>
-                        
-                        <div className="flex items-center mb-2">
-                          <div className="flex items-center">
-                            {[...Array(5)].map((_, i) => (
-                              <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                            ))}
-                          </div>
-                          <span className="text-sm text-muted-foreground ml-2">(0)</span>
-                        </div>
-                        
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center space-x-2">
-                            <span className="text-lg font-bold text-primary">{pricing.current}</span>
-                            {pricing.original && (
-                              <span className="text-sm text-muted-foreground line-through">
-                                {pricing.original}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                        
-                        <div className="flex space-x-2">
-                          <Button
-                            onClick={() => handleAddToCart(product)}
-                            className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
-                            size="sm"
-                          >
-                            <ShoppingCart className="w-4 h-4 mr-1" />
-                            Add to Cart
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </React.Fragment>
-                );
-              })}
-            </div>
-            
-            {/* Load More Button */}
-            {hasMoreProducts && (
-              <div className="text-center mt-12">
-                <Button
-                  onClick={loadMoreProducts}
-                  size="lg"
-                  className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-200"
-                >
-                  <ChevronDown className="w-5 h-5 mr-2" />
-                  Load More Products ({products.length - displayedProducts.length} remaining)
-                </Button>
-              </div>
-            )}
-          </>
+                </React.Fragment>
+              );
+            })}
+          </div>
         ) : (
-          <div className="text-center py-16">
-            <p className="text-muted-foreground mb-4">No loft beds found in our current inventory.</p>
-            <p className="text-muted-foreground mb-6">Check back soon for new arrivals!</p>
-            <Button asChild>
-              <Link to="/">Browse All Products</Link>
+          <div className="text-center py-24">
+            <div className="w-24 h-24 bg-gradient-to-br from-gray-200 to-gray-300 rounded-full flex items-center justify-center mx-auto mb-6">
+              <ShoppingCart className="w-12 h-12 text-gray-400" />
+            </div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">No beds found</h3>
+            <p className="text-gray-600 mb-8 max-w-md mx-auto">
+              We couldn't find any loft beds matching your current filters. Try adjusting your search criteria.
+            </p>
+            <Button onClick={() => {
+              setPriceRange('all');
+              setSortBy('featured');
+            }}>
+              Clear Filters
             </Button>
           </div>
         )}
