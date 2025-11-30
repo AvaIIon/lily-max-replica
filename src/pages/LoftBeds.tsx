@@ -137,61 +137,65 @@ export const LoftBeds = () => {
                 const productHandle = product.handle || generateHandle(product.title);
                 
                 return (
-                  <Card key={productHandle} className="group hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50">
-                    <div className="relative overflow-hidden rounded-t-lg">
-                      <img
-                        src={product.imageUrls[0] || loftBedsImage}
-                        alt={product.title}
-                        className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
-                        onError={(e) => {
-                          e.currentTarget.src = loftBedsImage;
-                        }}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <Card key={productHandle} className="group hover:shadow-lg transition-all duration-300 bg-white border border-gray-200">
+                    <div className="relative overflow-hidden bg-gray-50 flex items-center justify-center" style={{ height: '280px' }}>
                       {product.salePrice && product.price && (
-                        <Badge className="absolute top-3 left-3 bg-gradient-to-r from-green-500 to-green-600 text-white shadow-lg animate-pulse">
-                          🔥 Sale
+                        <Badge className="absolute top-4 right-4 bg-black text-white text-xs px-2 py-1">
+                          -{Math.round(((parseFloat(product.price.replace(/[$,]/g, '')) - parseFloat(product.salePrice.replace(/[$,]/g, ''))) / parseFloat(product.price.replace(/[$,]/g, ''))) * 100)}%
                         </Badge>
                       )}
+                      <img
+                        src={product.imageUrls?.[0]}
+                        alt={product.title}
+                        className="w-full h-full object-contain p-4"
+                      />
                     </div>
                     
-                    <CardContent className="p-4">
+                    <CardContent className="p-6 text-center">
                       <Link to={`/product/${productHandle}`}>
-                        <h3 className="font-semibold text-foreground mb-2 hover:text-primary transition-colors line-clamp-2">
+                        <h3 className="font-bold text-sm uppercase tracking-wide text-gray-900 mb-1 hover:text-gray-600 transition-colors">
                           {product.title}
                         </h3>
                       </Link>
+                      <p className="text-xs text-gray-500 mb-3 uppercase tracking-wide">
+                        {product.category}
+                      </p>
                       
-                      <div className="flex items-center mb-2">
-                        <div className="flex items-center">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                          ))}
-                        </div>
-                        <span className="text-sm text-muted-foreground ml-2">(0)</span>
+                      <div className="mb-3">
+                        {product.price && product.salePrice ? (
+                          <>
+                            <div className="flex items-center justify-center gap-2 mb-1">
+                              <span className="text-sm text-gray-500 line-through">
+                                Starting at {product.price}
+                              </span>
+                              <span className="text-lg font-bold text-red-600">
+                                {product.salePrice}
+                              </span>
+                            </div>
+                            <p className="text-xs text-red-600">
+                              You save {Math.round(((parseFloat(product.price.replace(/[$,]/g, '')) - parseFloat(product.salePrice.replace(/[$,]/g, ''))) / parseFloat(product.price.replace(/[$,]/g, ''))) * 100)}%
+                            </p>
+                          </>
+                        ) : (
+                          <div className="text-lg font-bold text-gray-900">
+                            {product.salePrice || product.price || 'Contact for price'}
+                          </div>
+                        )}
                       </div>
                       
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center space-x-2">
-                          <span className="text-lg font-bold text-primary">{pricing.current}</span>
-                          {pricing.original && (
-                            <span className="text-sm text-muted-foreground line-through">
-                              {pricing.original}
-                            </span>
-                          )}
-                        </div>
-                      </div>
+                      {product.availability && (
+                        <p className="text-xs text-gray-600 mb-3 uppercase tracking-wide">
+                          {product.availability}
+                        </p>
+                      )}
                       
-                      <div className="flex space-x-2">
-                        <Button
-                          onClick={() => handleAddToCart(product)}
-                          className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
-                          size="sm"
-                        >
-                          <ShoppingCart className="w-4 h-4 mr-1" />
-                          Add to Cart
-                        </Button>
-                      </div>
+                      <Button
+                        onClick={() => handleAddToCart(product)}
+                        className="w-full bg-black text-white hover:bg-gray-800 transition-colors"
+                        size="sm"
+                      >
+                        ADD TO CART
+                      </Button>
                     </CardContent>
                   </Card>
                 );
