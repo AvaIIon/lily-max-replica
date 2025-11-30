@@ -36,8 +36,8 @@ export const SaleBanner = () => {
   }, []);
 
   return (
-    <div className="bg-sale-green text-white py-3 px-4 text-center relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-sale-green via-sale-green to-green-600"></div>
+    <div className="bg-teal text-white py-3 px-4 text-center relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-r from-teal via-teal to-teal"></div>
       <div className="relative z-10 flex items-center justify-center space-x-2 text-sm font-medium">
         <span>🎉 BIGGEST SALE OF THE YEAR! Save up to 40% on all bunk beds & loft beds |</span>
         <div className="flex items-center space-x-1">

@@ -47,19 +47,10 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Max & Lily Brand Colors
-        "max-blue": "hsl(var(--max-blue))",
-        "lily-pink": "hsl(var(--lily-pink))",
-        "sale-green": "hsl(var(--sale-green))",
-        "cta-pink": "hsl(var(--cta-pink))",
-        "fun-orange": "hsl(var(--fun-orange))",
-        "playful-purple": "hsl(var(--playful-purple))",
-        "bright-yellow": "hsl(var(--bright-yellow))",
-        "coral-red": "hsl(var(--coral-red))",
-        "mint-green": "hsl(var(--mint-green))",
-        "lavender": "hsl(var(--lavender))",
-        "peach": "hsl(var(--peach))",
-        "turquoise": "hsl(var(--turquoise))",
+        // Bedsmart Brand Colors
+        "baby-blue": "hsl(var(--baby-blue))",
+        "teal": "hsl(var(--teal))",
+        "orange": "hsl(var(--orange))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
