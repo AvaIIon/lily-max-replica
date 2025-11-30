@@ -165,11 +165,9 @@ export const DressersStorage = () => {
                           )}
                         </div>
                         
-                        {product.availability && (
-                          <p className="text-xs text-gray-600 mb-3 uppercase tracking-wide">
-                            {product.availability}
-                          </p>
-                        )}
+                        <p className="text-xs text-green-600 mb-3 uppercase tracking-wide font-semibold">
+                          IN STOCK
+                        </p>
                         
                         <Button
                           onClick={() => handleAddToCart(product)}
