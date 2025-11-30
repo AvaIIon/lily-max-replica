@@ -11,7 +11,7 @@ interface MiniPromoBannerProps {
 export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps) => {
   if (type === 'sale') {
     return (
-      <Card className="group h-full hover:shadow-2xl hover:shadow-pink-500/30 transition-all duration-300 border-2 hover:border-pink-300 bg-gradient-to-br from-pink-500 via-red-500 to-orange-500 overflow-hidden">
+      <Card className="group h-full hover:shadow-2xl hover:shadow-orange/30 transition-all duration-300 border-2 hover:border-orange bg-gradient-to-br from-orange to-teal overflow-hidden">
         <div className="relative overflow-hidden rounded-t-lg h-32">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
@@ -19,17 +19,17 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
               <div className="text-lg font-bold drop-shadow-lg text-white">FLASH SALE!</div>
             </div>
           </div>
-          <div className="absolute top-3 left-3 bg-yellow-400/90 text-black rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-yellow-300">
+          <div className="absolute top-3 left-3 bg-white/90 text-orange rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-white">
             LIMITED TIME
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
         
-        <CardContent className="p-4 h-[calc(100%-12rem)]">
+        <CardContent className="p-4 flex flex-col h-[calc(100%-8rem)]">
           <h3 className="font-semibold text-white mb-2 text-lg">
             Up to 40% OFF
           </h3>
-          <p className="text-white/90 text-sm mb-3 line-clamp-2">
+          <p className="text-white/90 text-sm mb-3 line-clamp-2 flex-grow">
             Don't miss out on amazing savings across all furniture collections!
           </p>
           <div className="flex items-center justify-between mb-3">
@@ -39,7 +39,7 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
           </div>
           <Button
             size="sm"
-            className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30"
+            className="w-full bg-white hover:bg-white/90 text-teal border-0 font-semibold mt-auto"
           >
             <Sparkles className="w-4 h-4 mr-1" />
             Shop Sale Now
@@ -51,7 +51,7 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
 
   if (type === 'shipping') {
     return (
-      <Card className="group h-full hover:shadow-2xl hover:shadow-emerald-500/30 transition-all duration-300 border-2 hover:border-emerald-300 bg-gradient-to-br from-emerald-400 via-green-500 to-teal-600 overflow-hidden">
+      <Card className="group h-full hover:shadow-2xl hover:shadow-teal/30 transition-all duration-300 border-2 hover:border-teal bg-gradient-to-br from-teal to-orange overflow-hidden">
         <div className="relative overflow-hidden rounded-t-lg h-32">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
@@ -59,17 +59,17 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
               <div className="text-lg font-bold drop-shadow-lg text-white">FREE SHIPPING</div>
             </div>
           </div>
-          <div className="absolute top-3 left-3 bg-lime-400/90 text-black rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-lime-300">
+          <div className="absolute top-3 left-3 bg-white/90 text-teal rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-white">
             ON ORDERS $299+
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
         
-        <CardContent className="p-4 h-[calc(100%-12rem)]">
+        <CardContent className="p-4 flex flex-col h-[calc(100%-8rem)]">
           <h3 className="font-semibold text-white mb-2 text-lg">
             Fast & Free Delivery
           </h3>
-          <p className="text-white/90 text-sm mb-3 line-clamp-2">
+          <p className="text-white/90 text-sm mb-3 line-clamp-2 flex-grow">
             Get your furniture delivered right to your door with no extra charge!
           </p>
           <div className="flex items-center justify-between mb-3">
@@ -79,7 +79,7 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
           </div>
           <Button
             size="sm"
-            className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30"
+            className="w-full bg-white hover:bg-white/90 text-teal border-0 font-semibold mt-auto"
           >
             <Gift className="w-4 h-4 mr-1" />
             Learn More
@@ -91,7 +91,7 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
 
   if (type === 'guarantee') {
     return (
-      <Card className="group h-full hover:shadow-2xl hover:shadow-violet-500/30 transition-all duration-300 border-2 hover:border-violet-300 bg-gradient-to-br from-violet-500 via-purple-500 to-fuchsia-500 overflow-hidden">
+      <Card className="group h-full hover:shadow-2xl hover:shadow-orange/30 transition-all duration-300 border-2 hover:border-orange bg-gradient-to-br from-orange to-teal overflow-hidden">
         <div className="relative overflow-hidden rounded-t-lg h-32">
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
@@ -99,17 +99,17 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
               <div className="text-lg font-bold drop-shadow-lg text-white">QUALITY PROMISE</div>
             </div>
           </div>
-          <div className="absolute top-3 left-3 bg-cyan-400/90 text-black rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-cyan-300">
+          <div className="absolute top-3 left-3 bg-white/90 text-orange rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-white">
             PREMIUM QUALITY
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </div>
         
-        <CardContent className="p-4 h-[calc(100%-12rem)]">
+        <CardContent className="p-4 flex flex-col h-[calc(100%-8rem)]">
           <h3 className="font-semibold text-white mb-2 text-lg">
             Built to Last
           </h3>
-          <p className="text-white/90 text-sm mb-3 line-clamp-2">
+          <p className="text-white/90 text-sm mb-3 line-clamp-2 flex-grow">
             Premium materials and construction with 5-star customer reviews!
           </p>
           <div className="flex items-center justify-between mb-3">
@@ -119,7 +119,7 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
           </div>
           <Button
             size="sm"
-            className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30"
+            className="w-full bg-white hover:bg-white/90 text-teal border-0 font-semibold mt-auto"
           >
             <Star className="w-4 h-4 mr-1" />
             Read Reviews
@@ -140,7 +140,7 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
   const randomCategory = otherCategories[Math.floor(Math.random() * otherCategories.length)];
 
   return (
-    <Card className="group h-full hover:shadow-2xl hover:shadow-indigo-500/30 transition-all duration-300 border-2 hover:border-indigo-300 bg-gradient-to-br from-indigo-500 via-blue-500 to-sky-500 overflow-hidden">
+    <Card className="group h-full hover:shadow-2xl hover:shadow-teal/30 transition-all duration-300 border-2 hover:border-teal bg-gradient-to-br from-orange to-teal overflow-hidden">
       <div className="relative overflow-hidden rounded-t-lg h-32">
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center">
@@ -148,17 +148,17 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
             <div className="text-lg font-bold drop-shadow-lg text-white">EXPLORE MORE</div>
           </div>
         </div>
-        <div className="absolute top-3 left-3 bg-rose-400/90 text-black rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-rose-300">
+        <div className="absolute top-3 left-3 bg-white/90 text-teal rounded-full px-3 py-1 text-xs font-bold shadow-lg border border-white">
           NEW COLLECTION
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       </div>
       
-      <CardContent className="p-4 h-[calc(100%-12rem)]">
+      <CardContent className="p-4 flex flex-col h-[calc(100%-8rem)]">
         <h3 className="font-semibold text-white mb-2 text-lg">
           {randomCategory.name}
         </h3>
-        <p className="text-white/90 text-sm mb-3 line-clamp-2">
+        <p className="text-white/90 text-sm mb-3 line-clamp-2 flex-grow">
           Discover our amazing {randomCategory.name.toLowerCase()} collection with unique designs!
         </p>
         <div className="flex items-center justify-between mb-3">
@@ -169,7 +169,7 @@ export const MiniPromoBanner = ({ type, currentCategory }: MiniPromoBannerProps)
         <Button
           asChild
           size="sm"
-          className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30"
+          className="w-full bg-white hover:bg-white/90 text-teal border-0 font-semibold mt-auto"
         >
           <Link to={randomCategory.path} className="flex items-center justify-center">
             <Zap className="w-4 h-4 mr-1" />
