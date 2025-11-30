@@ -6,14 +6,14 @@
 
 @layer base {
   :root {
-    --background: 320 30% 98%;
-    --foreground: 220 30% 25%;
+    --background: 345 100% 91%;  /* Pink #FFD1DC */
+    --foreground: 280 70% 25%;
 
-    --card: 320 15% 98%;
-    --card-foreground: 220 30% 25%;
+    --card: 345 100% 91%;  /* Pink #FFD1DC */
+    --card-foreground: 280 70% 25%;
 
-    --popover: 320 15% 98%;
-    --popover-foreground: 220 30% 25%;
+    --popover: 345 100% 91%;  /* Pink #FFD1DC */
+    --popover-foreground: 280 70% 25%;
 
     /* Max & Lily Brand Colors - Super Vibrant & Child-like */
     --max-blue: 200 100% 65%;        /* Bright electric blue for "Max" */
@@ -57,33 +57,33 @@
     --accent: 270 85% 65%;
     --accent-foreground: 0 0% 100%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 280 80% 85%;
+    --muted-foreground: 280 60% 35%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 100% 65%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 220 9% 46%;
+    --border: 280 90% 70%;
+    --input: 280 80% 88%;
+    --ring: 280 90% 50%;
 
     --radius: 0.5rem;
 
-    --sidebar-background: 0 0% 98%;
+    --sidebar-background: 345 100% 91%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-foreground: 280 70% 25%;
 
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary: 320 100% 70%;
 
-    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-primary-foreground: 0 0% 100%;
 
-    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent: 280 80% 80%;
 
-    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-accent-foreground: 280 70% 25%;
 
-    --sidebar-border: 220 13% 91%;
+    --sidebar-border: 280 90% 70%;
 
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 320 100% 70%;
   }
 
   .dark {
@@ -138,15 +138,16 @@
 
   body {
     background: linear-gradient(135deg, 
-      hsl(280 60% 96%) 0%, 
-      hsl(320 50% 95%) 15%, 
-      hsl(200 40% 96%) 30%, 
-      hsl(150 45% 95%) 45%, 
-      hsl(35 50% 96%) 60%,
-      hsl(270 40% 95%) 75%,
-      hsl(180 35% 96%) 90%,
-      hsl(45 45% 95%) 100%);
+      hsl(345 100% 91%) 0%, 
+      hsl(280 90% 85%) 15%, 
+      hsl(200 95% 85%) 30%, 
+      hsl(150 90% 80%) 45%, 
+      hsl(35 100% 85%) 60%,
+      hsl(270 90% 85%) 75%,
+      hsl(180 90% 85%) 90%,
+      hsl(45 100% 85%) 100%);
     min-height: 100vh;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', sans-serif;
     @apply text-foreground;
   }
 
