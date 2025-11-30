@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Header } from '@/components/Header';
 import { MiniPromoBanner } from '@/components/MiniPromoBanner';
+import loftBedsImage from '@/assets/loft-beds.jpg';
 import { loadBedsmartProducts, getFormattedPrice, generateHandle, getProductsByCategory } from '@/data/productData';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
@@ -139,11 +140,11 @@ export const LoftBeds = () => {
                   <Card key={productHandle} className="group hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50">
                     <div className="relative overflow-hidden rounded-t-lg">
                       <img
-                        src={product.imageUrls[0] || "https://via.placeholder.com/300x200"}
+                        src={product.imageUrls[0] || loftBedsImage}
                         alt={product.title}
                         className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                         onError={(e) => {
-                          e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
+                          e.currentTarget.src = loftBedsImage;
                         }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -205,11 +206,11 @@ export const LoftBeds = () => {
                   <Card key={productHandle} className="group hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50">
                     <div className="relative overflow-hidden rounded-t-lg">
                       <img
-                        src={product.imageUrls[0] || "https://via.placeholder.com/300x200"}
+                        src={product.imageUrls[0] || loftBedsImage}
                         alt={product.title}
                         className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                         onError={(e) => {
-                          e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
+                          e.currentTarget.src = loftBedsImage;
                         }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -276,11 +277,11 @@ export const LoftBeds = () => {
                   <Card key={productHandle} className="group hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50">
                     <div className="relative overflow-hidden rounded-t-lg">
                       <img
-                        src={product.imageUrls[0] || "https://via.placeholder.com/300x200"}
+                        src={product.imageUrls[0] || loftBedsImage}
                         alt={product.title}
                         className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                         onError={(e) => {
-                          e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
+                          e.currentTarget.src = loftBedsImage;
                         }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -345,11 +346,11 @@ export const LoftBeds = () => {
                   <Card key={productHandle} className="group hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 border-2 hover:border-green-300 bg-gradient-to-br from-white to-green-50">
                     <div className="relative overflow-hidden rounded-t-lg">
                       <img
-                        src={product.imageUrls[0] || "https://via.placeholder.com/300x200"}
+                        src={product.imageUrls[0] || loftBedsImage}
                         alt={product.title}
                         className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
                         onError={(e) => {
-                          e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
+                          e.currentTarget.src = loftBedsImage;
                         }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Header } from '@/components/Header';
 import { MiniPromoBanner } from '@/components/MiniPromoBanner';
+import singleBedsImage from '@/assets/single-beds.jpg';
 import { loadBedsmartProducts, getFormattedPrice, generateHandle, getProductsByCategory } from '@/data/productData';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
@@ -319,11 +320,11 @@ export const SingleBeds = () => {
                     }`}>
                       <div className={`relative overflow-hidden ${viewMode === 'list' ? 'w-64 flex-shrink-0' : 'h-64'}`}>
                         <img
-                          src={product.imageUrls?.[0] || "https://via.placeholder.com/300x200"}
+                          src={product.imageUrls?.[0] || singleBedsImage}
                           alt={product.title}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                           onError={(e) => {
-                            e.currentTarget.src = "https://via.placeholder.com/300x200?text=Product+Image";
+                            e.currentTarget.src = singleBedsImage;
                           }}
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
