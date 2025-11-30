@@ -42,6 +42,8 @@ export const SingleBeds = () => {
       try {
         const allProducts = await loadBedsmartProducts();
         const singleBedProducts = getProductsByCategory(allProducts, 'Single Beds');
+        console.log('Sample single bed product:', singleBedProducts[0]);
+        console.log('Sample imageUrls:', singleBedProducts[0]?.imageUrls);
         setProducts(singleBedProducts);
         setFilteredProducts(singleBedProducts);
       } catch (error) {
@@ -317,7 +319,7 @@ export const SingleBeds = () => {
                     }`}>
                       <div className={`relative overflow-hidden ${viewMode === 'list' ? 'w-64 flex-shrink-0' : 'h-64'}`}>
                         <img
-                          src={product.imageUrls[0] || "https://via.placeholder.com/300x200"}
+                          src={product.imageUrls?.[0] || "https://via.placeholder.com/300x200"}
                           alt={product.title}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                           onError={(e) => {
