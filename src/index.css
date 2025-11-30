@@ -6,13 +6,13 @@
 
 @layer base {
   :root {
-    --background: 345 100% 91%;  /* Pink #FFD1DC */
+    --background: 343 100% 95%;  /* Pink #ffe3ed */
     --foreground: 280 70% 25%;
 
-    --card: 345 100% 91%;  /* Pink #FFD1DC */
+    --card: 343 100% 95%;  /* Pink #ffe3ed */
     --card-foreground: 280 70% 25%;
 
-    --popover: 345 100% 91%;  /* Pink #FFD1DC */
+    --popover: 343 100% 95%;  /* Pink #ffe3ed */
     --popover-foreground: 280 70% 25%;
 
     /* Max & Lily Brand Colors - Super Vibrant & Child-like */
@@ -69,7 +69,7 @@
 
     --radius: 0.5rem;
 
-    --sidebar-background: 345 100% 91%;
+    --sidebar-background: 343 100% 95%;
 
     --sidebar-foreground: 280 70% 25%;
 
@@ -138,14 +138,14 @@
 
   body {
     background: linear-gradient(135deg, 
-      hsl(345 100% 91%) 0%, 
-      hsl(280 90% 85%) 15%, 
-      hsl(200 95% 85%) 30%, 
-      hsl(150 90% 80%) 45%, 
-      hsl(35 100% 85%) 60%,
-      hsl(270 90% 85%) 75%,
-      hsl(180 90% 85%) 90%,
-      hsl(45 100% 85%) 100%);
+      hsl(343 100% 95%) 0%, 
+      hsl(280 90% 90%) 15%, 
+      hsl(200 95% 90%) 30%, 
+      hsl(150 90% 88%) 45%, 
+      hsl(35 100% 90%) 60%,
+      hsl(270 90% 90%) 75%,
+      hsl(180 90% 90%) 90%,
+      hsl(45 100% 90%) 100%);
     min-height: 100vh;
     font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', sans-serif;
     @apply text-foreground;
