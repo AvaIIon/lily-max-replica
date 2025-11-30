@@ -160,11 +160,11 @@ export const SingleBeds = () => {
       
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-orange to-teal"></div>
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-20 w-32 h-32 bg-yellow-300/30 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-20 w-40 h-40 bg-pink-300/30 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-blue-300/30 rounded-full blur-2xl animate-pulse"></div>
+          <div className="absolute top-20 left-20 w-32 h-32 bg-orange/30 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-20 w-40 h-40 bg-teal/30 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-orange/20 rounded-full blur-2xl animate-pulse"></div>
         </div>
         
         <div className="relative container mx-auto px-4 py-24">
@@ -175,7 +175,7 @@ export const SingleBeds = () => {
             </div>
             
             <h1 className="text-6xl md:text-7xl font-bold text-white mb-8 tracking-tight">
-              Sleep in <span className="bg-gradient-to-r from-yellow-300 to-orange-300 bg-clip-text text-transparent">Style</span>
+              Sleep in <span className="bg-gradient-to-r from-white to-baby-blue bg-clip-text text-transparent">Style</span>
             </h1>
             
             <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed mb-12">

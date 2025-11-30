@@ -7,7 +7,7 @@ export const Footer = () => {
   return (
     <footer className="bg-gradient-to-br from-slate-800 via-slate-900 to-black text-white">
       {/* Newsletter Section */}
-      <div className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 py-12">
+      <div className="bg-gradient-to-r from-orange to-teal py-12">
         <div className="container mx-auto px-4 text-center">
           <h3 className="text-2xl font-bold text-white mb-4">
             📧 Stay in the Loop!
@@ -21,7 +21,7 @@ export const Footer = () => {
               placeholder="Enter your email address" 
               className="flex-1 bg-white/20 border-white/30 text-white placeholder:text-white/70"
             />
-            <Button className="bg-white text-purple-600 hover:bg-white/90 font-semibold">
+            <Button className="bg-white text-teal hover:bg-white/90 font-semibold">
               Subscribe Now
             </Button>
           </div>
@@ -35,7 +35,7 @@ export const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <div className="text-2xl font-bold bg-gradient-to-r from-orange to-teal bg-clip-text text-transparent">
                 🛏️ BedSmart
               </div>
             </div>

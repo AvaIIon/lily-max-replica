@@ -61,7 +61,7 @@ export const DressersStorage = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-orange-400 via-pink-500 to-purple-600 py-20 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-orange to-teal py-20 overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 max-w-3xl mx-auto">
@@ -73,8 +73,8 @@ export const DressersStorage = () => {
             </p>
           </div>
         </div>
-        <div className="absolute top-10 left-10 w-20 h-20 bg-yellow-300/30 rounded-full blur-xl"></div>
-        <div className="absolute bottom-10 right-10 w-32 h-32 bg-blue-300/30 rounded-full blur-xl"></div>
+        <div className="absolute top-10 left-10 w-20 h-20 bg-orange/30 rounded-full blur-xl"></div>
+        <div className="absolute bottom-10 right-10 w-32 h-32 bg-teal/30 rounded-full blur-xl"></div>
       </section>
 
       {/* Breadcrumb */}
