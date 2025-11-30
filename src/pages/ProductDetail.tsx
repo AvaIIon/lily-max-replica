@@ -152,11 +152,9 @@ export const ProductDetail = () => {
                 )}
               </div>
 
-              {product.availability === 'In stock' && (
-                <Badge variant="secondary" className="bg-green-100 text-green-800">
-                  In Stock
-                </Badge>
-              )}
+              <Badge variant="secondary" className="bg-green-100 text-green-800">
+                In Stock
+              </Badge>
             </div>
 
             <div>
