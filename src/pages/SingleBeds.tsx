@@ -329,41 +329,43 @@ export const SingleBeds = () => {
                         />
                       </div>
                       
-                      <CardContent className="p-6 text-center">
-                        <Link to={`/product/${productHandle}`}>
-                          <h3 className="font-bold text-sm uppercase tracking-wide text-gray-900 mb-1 hover:text-gray-600 transition-colors">
-                            {product.title}
-                          </h3>
-                        </Link>
-                        <p className="text-xs text-gray-500 mb-3 uppercase tracking-wide">
-                          {product.category}
-                        </p>
-                        
-                        <div className="mb-3">
-                          {product.price && product.salePrice ? (
-                            <>
-                              <div className="flex items-center justify-center gap-2 mb-1">
-                                <span className="text-sm text-gray-500 line-through">
-                                  Starting at {product.price}
-                                </span>
-                                <span className="text-lg font-bold text-red-600">
-                                  {product.salePrice}
-                                </span>
+                      <CardContent className="p-6 text-center flex flex-col min-h-[240px]">
+                        <div className="flex-grow">
+                          <Link to={`/product/${productHandle}`}>
+                            <h3 className="font-bold text-sm uppercase tracking-wide text-gray-900 mb-1 hover:text-gray-600 transition-colors">
+                              {product.title}
+                            </h3>
+                          </Link>
+                          <p className="text-xs text-gray-500 mb-3 uppercase tracking-wide">
+                            {product.category}
+                          </p>
+                          
+                          <div className="mb-3">
+                            {product.price && product.salePrice ? (
+                              <>
+                                <div className="flex items-center justify-center gap-2 mb-1">
+                                  <span className="text-sm text-gray-500 line-through">
+                                    Starting at {product.price}
+                                  </span>
+                                  <span className="text-lg font-bold text-red-600">
+                                    {product.salePrice}
+                                  </span>
+                                </div>
+                                <p className="text-xs text-red-600">
+                                  You save {Math.round(((parseFloat(product.price.replace(/[$,]/g, '')) - parseFloat(product.salePrice.replace(/[$,]/g, ''))) / parseFloat(product.price.replace(/[$,]/g, ''))) * 100)}%
+                                </p>
+                              </>
+                            ) : (
+                              <div className="text-lg font-bold text-gray-900">
+                                {product.salePrice || product.price || 'Contact for price'}
                               </div>
-                              <p className="text-xs text-red-600">
-                                You save {Math.round(((parseFloat(product.price.replace(/[$,]/g, '')) - parseFloat(product.salePrice.replace(/[$,]/g, ''))) / parseFloat(product.price.replace(/[$,]/g, ''))) * 100)}%
-                              </p>
-                            </>
-                          ) : (
-                            <div className="text-lg font-bold text-gray-900">
-                              {product.salePrice || product.price || 'Contact for price'}
-                            </div>
-                          )}
+                            )}
+                          </div>
+                          
+                          <p className="text-xs text-green-600 mb-3 uppercase tracking-wide font-semibold">
+                            IN STOCK
+                          </p>
                         </div>
-                        
-                        <p className="text-xs text-green-600 mb-3 uppercase tracking-wide font-semibold">
-                          IN STOCK
-                        </p>
                         
                         <Button
                           onClick={() => handleAddToCart(product)}
