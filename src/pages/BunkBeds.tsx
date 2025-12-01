@@ -294,7 +294,7 @@ export const BunkBeds = () => {
                       />
                     </div>
                     
-                    <CardContent className="p-6 text-center flex flex-col h-full">
+                    <CardContent className="p-6 text-center">
                       <Link to={`/product/${productHandle}`}>
                         <h3 className="font-bold text-sm uppercase tracking-wide text-gray-900 mb-1 hover:text-gray-600 transition-colors">
                           {product.title}
@@ -304,7 +304,7 @@ export const BunkBeds = () => {
                         {product.category}
                       </p>
                       
-                      <div className="mb-3 flex-grow">
+                      <div className="mb-3">
                         {product.price && product.salePrice ? (
                           <>
                             <div className="flex items-center justify-center gap-2 mb-1">
@@ -324,15 +324,15 @@ export const BunkBeds = () => {
                             {product.salePrice || product.price || 'Contact for price'}
                           </div>
                         )}
-                        
-                        <p className="text-xs text-green-600 mt-3 uppercase tracking-wide font-semibold">
-                          IN STOCK
-                        </p>
                       </div>
+                      
+                      <p className="text-xs text-green-600 mb-3 uppercase tracking-wide font-semibold">
+                        IN STOCK
+                      </p>
                       
                       <Button
                         onClick={() => handleAddToCart(product)}
-                        className="w-full bg-black text-white hover:bg-gray-800 transition-colors mt-auto"
+                        className="w-full bg-black text-white hover:bg-gray-800 transition-colors"
                         size="sm"
                       >
                         ADD TO CART
