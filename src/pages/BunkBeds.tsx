@@ -186,7 +186,7 @@ export const BunkBeds = () => {
       </section>
 
       {/* Breadcrumb & Filters */}
-      <section className="bg-white border-b">
+      <section className="bg-baby-blue border-b">
         <div className="container mx-auto px-4 py-6">
           <nav className="flex items-center space-x-2 text-sm text-muted-foreground mb-6">
             <Link to="/" className="hover:text-foreground">Home</Link>
