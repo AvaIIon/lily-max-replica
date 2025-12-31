@@ -120,7 +120,7 @@
   body {
     background: hsl(200 30% 75%);
     min-height: 100vh;
-    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', sans-serif;
+    font-family: 'Manrope', sans-serif;
     @apply text-foreground;
   }
 
